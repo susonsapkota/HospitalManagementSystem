@@ -19,20 +19,18 @@ import javax.swing.table.DefaultTableModel;
  */
 public class AddPatientFrame extends javax.swing.JFrame {
 
-    public static ArrayList<Patient> patientList = new ArrayList<>();
+   
     private Configuration config ;
 
     /**
      * Creates new form mainFrame
      */
     public AddPatientFrame() {
-        setTitle("Hospital Management System - Add Patient"); // setting the title of the frame
-        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("./img/favicon.png"))); // setting the icon image
         config = new Configuration();
         config.setIconAndTitle(this, "Add Patient");
         initComponents();
         config.selectDoctorForPatient(doctorComboBox);
-        config.addDoctorsToTable(patientTable);
+        config.addPatientToTable(patientTable);
         setVisible(true);
     }
 
@@ -700,13 +698,13 @@ public class AddPatientFrame extends javax.swing.JFrame {
             String doctor = (String) doctorComboBox.getSelectedItem();
 
             // checking if that doctor is already added and is on table 
-            for (Patient patient : patientList) {
+            for (Patient patient : Configuration.patientList) {
                 if (patient.getName().equals(name) && patient.getAddress().equals(address)) {
                     JOptionPane.showMessageDialog(rootPane, name + " is already added.", "Error", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
             }
-            patientList.add(new Patient(name, age, sex, address, sevirity, config.findDoctorByName(doctor)));
+            Configuration.patientList.add(new Patient(name, age, sex, address, sevirity, config.findDoctorByName(doctor)));
 
             DefaultTableModel model = (DefaultTableModel) patientTable.getModel();
             model.addRow(new Object[]{});

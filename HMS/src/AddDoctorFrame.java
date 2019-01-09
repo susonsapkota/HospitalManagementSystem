@@ -18,16 +18,13 @@ import javax.swing.table.DefaultTableModel;
  * @author Suson
  */
 public class AddDoctorFrame extends javax.swing.JFrame {
-
-    // we allow this to be static because before we even run this class we want this list in patient class to view list of doctors
-    public static ArrayList<Doctor> doctorList = new ArrayList<>();
-
+Configuration config;
     /**
      * Creates new form mainFrame
      */
     public AddDoctorFrame() {
-        setTitle("Hospital Management System - Add Doctor"); // setting the title of the frame
-        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("./img/favicon.png"))); // setting the icon image
+        Configuration config = new Configuration();
+        config.setIconAndTitle(this, "Add Doctor");
         initComponents();
         addDoctors();
         setVisible(true);
@@ -37,7 +34,7 @@ public class AddDoctorFrame extends javax.swing.JFrame {
     public void addDoctors() {
 
         DefaultTableModel model = (DefaultTableModel) doctorsTable.getModel();
-        for (Doctor doctor : doctorList) {
+        for (Doctor doctor : Configuration.doctorList) {
             model.addRow(new Object[]{});
             int myRow = model.getRowCount() - 1;
             doctorsTable.setValueAt(doctor.getName(), myRow, 0);
@@ -47,19 +44,6 @@ public class AddDoctorFrame extends javax.swing.JFrame {
 
         }
 
-    }
-
-    public void closeFrameAfer() {
-        // this is for making so that this frame would close after half a second(500 ms) before main frame would close
-        // simple fix that would flicker the screen while changing the tab.
-        Timer timer = new Timer(500, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-            }
-        });
-        timer.setRepeats(false);
-        timer.start();
     }
 
     /**
@@ -573,14 +557,15 @@ public class AddDoctorFrame extends javax.swing.JFrame {
     private void addPatientButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPatientButtonActionPerformed
         // TODO add your handling code here:
         new AddPatientFrame();
-        closeFrameAfer();
+        
+        config.closeFrameAfer(this);
 
     }//GEN-LAST:event_addPatientButtonActionPerformed
 
     private void manageButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageButtonActionPerformed
         // TODO add your handling code here:
         new MainFrame().setVisible(true);
-        closeFrameAfer();
+        config.closeFrameAfer(this);
     }//GEN-LAST:event_manageButtonActionPerformed
 
     private void addDoctorButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addDoctorButtonActionPerformed
@@ -598,7 +583,7 @@ public class AddDoctorFrame extends javax.swing.JFrame {
     private void contactButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contactButtonActionPerformed
         // TODO add your handling code here:
         new AboutUsFrame();
-        closeFrameAfer();
+        config.closeFrameAfer(this);
     }//GEN-LAST:event_contactButtonActionPerformed
 
     private void viewDoctorsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewDoctorsButtonActionPerformed
@@ -637,14 +622,14 @@ public class AddDoctorFrame extends javax.swing.JFrame {
             String shift = (String) shiftComboBox.getSelectedItem();
 
             // checking if that doctor is already added and is on table 
-            for (Doctor doctors : doctorList) {
+            for (Doctor doctors : Configuration.doctorList) {
                 if (doctors.getName().equals(name)) {
                     JOptionPane.showMessageDialog(rootPane, name + " is already added.", "Error", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
             }
 
-            doctorList.add(new Doctor(name, address, shift, salary));
+            Configuration.doctorList.add(new Doctor(name, address, shift, salary));
 
             DefaultTableModel model = (DefaultTableModel) doctorsTable.getModel();
             model.addRow(new Object[]{});
@@ -654,8 +639,6 @@ public class AddDoctorFrame extends javax.swing.JFrame {
             doctorsTable.setValueAt(address, myRow, 1);
             doctorsTable.setValueAt(shift, myRow, 2);
             doctorsTable.setValueAt(salary, myRow, 3);
-            
-            
 
         } else {
             if (nameField.getText().isEmpty() || addressField.getText().isEmpty()
