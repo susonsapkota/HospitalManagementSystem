@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.Timer;
 import javax.swing.table.DefaultTableModel;
@@ -76,10 +77,11 @@ public class Configuration {
 
         }
     }
-    
-        public void addDoctorToTable(JTable table) {
+
+    public void addDoctorToTable(JTable table) {
 
         DefaultTableModel model = (DefaultTableModel) table.getModel();
+        model.setRowCount(0);
         for (Doctor doctor : Configuration.doctorList) {
             model.addRow(new Object[]{});
             int myRow = model.getRowCount() - 1;
@@ -116,4 +118,79 @@ public class Configuration {
 
     }
 
+    public void displayDoctor(JFrame frame, Doctor doc) {
+        JOptionPane.showMessageDialog(frame, "Doctor Name : " + doc.getName()
+                + "\nAddress : " + doc.getAddress()
+                + "\nShift : " + doc.getShift()
+                + "\nSalary : " + doc.getSalary(),
+                doc.getName(), JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public String[] copyToTempList(ArrayList<Doctor> doc, String keyword) {
+        String[] tempList = new String[doc.size()];
+        int i = 0;
+        if (keyword.equals("Name")) {
+            for (Doctor docs : doc) {
+                tempList[i] = docs.getName();
+                i++;
+            }
+            return tempList;
+        } else if (keyword.equals("Address")) {
+            for (Doctor docs : doc) {
+                tempList[i] = docs.getAddress();
+                i++;
+            }
+            return tempList;
+        } else if (keyword.equals("Shift")) {
+            for (Doctor docs : doc) {
+                tempList[i] = docs.getShift();
+                i++;
+            }
+            return tempList;
+        } else if (keyword.equals("Salary")) {
+            for (Doctor docs : doc) {
+                tempList[i] = Integer.toString(docs.getSalary());
+                i++;
+            }
+            return tempList;
+        } 
+        return tempList;
+    }
+
+    public ArrayList<Doctor> searchingAccordingToKeyword(String[] sorted, String keyword) {
+
+        ArrayList<Doctor> tempDoc = new ArrayList<>();
+
+        for (String name : sorted) {
+
+            if (keyword.equals("Name")) {
+                for (Doctor doc : Configuration.doctorList) {
+                    if (doc.getName().equals(name) && !(tempDoc.contains(doc))) {
+                        tempDoc.add(doc);
+                    }
+                }
+                return tempDoc;
+            } else if (keyword.equals("Address")) {
+                for (Doctor doc : Configuration.doctorList) {
+                    if (doc.getAddress().equals(name) && !(tempDoc.contains(doc))) {
+                        tempDoc.add(doc);
+                    }
+                }
+            } else if (keyword.equals("Shift")) {
+                for (Doctor doc : Configuration.doctorList) {
+                    if (doc.getShift().equals(name) && !(tempDoc.contains(doc))) {
+                        tempDoc.add(doc);
+                    }
+                }
+            } else if (keyword.equals("Salary")) {
+                for (Doctor doc : Configuration.doctorList) {
+                    if (doc.getSalary() == Integer.parseInt(name) && !(tempDoc.contains(doc))) {
+                        tempDoc.add(doc);
+                    }
+                }
+            }
+
+        }
+        return tempDoc;
+    }
 }

@@ -1,7 +1,13 @@
 
+import com.sun.org.apache.bcel.internal.generic.AALOAD;
 import java.awt.Font;
-
-
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.Set;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -14,11 +20,13 @@ import java.awt.Font;
  */
 public class ViewDoctorsFrame extends javax.swing.JFrame {
 
+    Configuration config;
+
     /**
      * Creates new form AddPatientFrames
      */
     public ViewDoctorsFrame() {
-        Configuration config = new Configuration();
+        config = new Configuration();
         config.setIconAndTitle(this, "View Doctors");
         initComponents();
         config.addDoctorToTable(doctorsTable);
@@ -36,6 +44,7 @@ public class ViewDoctorsFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel2 = new javax.swing.JPanel();
+        searchButtonGroup = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         manageButton = new javax.swing.JButton();
         addPatientButton = new javax.swing.JButton();
@@ -49,16 +58,16 @@ public class ViewDoctorsFrame extends javax.swing.JFrame {
         viewDoctorsButton = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jLabel3 = new javax.swing.JLabel();
+        sortSelector = new javax.swing.JComboBox<>();
+        searchLabel = new javax.swing.JLabel();
         searchButton = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         searchField = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jRadioButton3 = new javax.swing.JRadioButton();
-        jRadioButton4 = new javax.swing.JRadioButton();
+        searchIcon = new javax.swing.JLabel();
+        nameRadio = new javax.swing.JRadioButton();
+        addressRadio = new javax.swing.JRadioButton();
+        shiftRadio = new javax.swing.JRadioButton();
+        salaryRadio = new javax.swing.JRadioButton();
         tableScrollPane = new javax.swing.JScrollPane();
         doctorsTable = new javax.swing.JTable();
         jPanel7 = new javax.swing.JPanel();
@@ -296,22 +305,27 @@ public class ViewDoctorsFrame extends javax.swing.JFrame {
         jPanel5.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 0, true));
         jPanel5.setPreferredSize(new java.awt.Dimension(2079, 70));
 
-        jComboBox2.setFont(new java.awt.Font("Gadugi", 1, 24)); // NOI18N
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "    Salary", "    Name", "    Address", "    Shift", "    None" }));
-        jComboBox2.setAutoscrolls(true);
-        jComboBox2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jComboBox2.setMaximumSize(new java.awt.Dimension(80, 25));
-        jComboBox2.setMinimumSize(new java.awt.Dimension(80, 25));
-        jComboBox2.setOpaque(false);
-        jComboBox2.setPreferredSize(new java.awt.Dimension(80, 25));
-        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
+        sortSelector.setFont(new java.awt.Font("Gadugi", 1, 24)); // NOI18N
+        sortSelector.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "    None", "    Salary", "    Name", "    Address", "    Shift" }));
+        sortSelector.setAutoscrolls(true);
+        sortSelector.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        sortSelector.setMaximumSize(new java.awt.Dimension(80, 25));
+        sortSelector.setMinimumSize(new java.awt.Dimension(80, 25));
+        sortSelector.setOpaque(false);
+        sortSelector.setPreferredSize(new java.awt.Dimension(80, 25));
+        sortSelector.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                sortSelectorItemStateChanged(evt);
+            }
+        });
+        sortSelector.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox2ActionPerformed(evt);
+                sortSelectorActionPerformed(evt);
             }
         });
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel3.setText("Sort By :");
+        searchLabel.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        searchLabel.setText("Sort By :");
 
         searchButton.setBackground(new java.awt.Color(76, 175, 80));
         searchButton.setFont(new java.awt.Font("Gadugi", 1, 24)); // NOI18N
@@ -343,16 +357,16 @@ public class ViewDoctorsFrame extends javax.swing.JFrame {
             }
         });
 
-        jLabel4.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/search.png"))); // NOI18N
-        jLabel4.setOpaque(true);
+        searchIcon.setBackground(new java.awt.Color(255, 255, 255));
+        searchIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/search.png"))); // NOI18N
+        searchIcon.setOpaque(true);
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(searchIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 17, Short.MAX_VALUE)
                 .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, 540, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -360,33 +374,42 @@ public class ViewDoctorsFrame extends javax.swing.JFrame {
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(searchIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        jRadioButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jRadioButton1.setText("Name");
-        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+        searchButtonGroup.add(nameRadio);
+        nameRadio.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        nameRadio.setText("Name");
+        nameRadio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton1ActionPerformed(evt);
+                nameRadioActionPerformed(evt);
             }
         });
 
-        jRadioButton2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jRadioButton2.setText("Address");
-        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
+        searchButtonGroup.add(addressRadio);
+        addressRadio.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        addressRadio.setText("Address");
+        addressRadio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton2ActionPerformed(evt);
+                addressRadioActionPerformed(evt);
             }
         });
 
-        jRadioButton3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jRadioButton3.setText("Shift");
-        jRadioButton3.setMaximumSize(new java.awt.Dimension(65, 25));
-        jRadioButton3.setMinimumSize(new java.awt.Dimension(65, 25));
-        jRadioButton3.setPreferredSize(new java.awt.Dimension(65, 25));
+        searchButtonGroup.add(shiftRadio);
+        shiftRadio.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        shiftRadio.setText("Shift");
+        shiftRadio.setMaximumSize(new java.awt.Dimension(65, 25));
+        shiftRadio.setMinimumSize(new java.awt.Dimension(65, 25));
+        shiftRadio.setPreferredSize(new java.awt.Dimension(65, 25));
+        shiftRadio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                shiftRadioActionPerformed(evt);
+            }
+        });
 
-        jRadioButton4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jRadioButton4.setText("Salary");
+        searchButtonGroup.add(salaryRadio);
+        salaryRadio.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        salaryRadio.setText("Salary");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -396,19 +419,19 @@ public class ViewDoctorsFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jRadioButton1)
+                .addComponent(nameRadio)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jRadioButton2)
+                .addComponent(addressRadio)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jRadioButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(shiftRadio, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jRadioButton4)
+                .addComponent(salaryRadio)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(searchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 117, Short.MAX_VALUE)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(searchLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
-                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(sortSelector, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
@@ -419,20 +442,20 @@ public class ViewDoctorsFrame extends javax.swing.JFrame {
                         .addGap(10, 10, 10)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(searchLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(searchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(sortSelector, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jRadioButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jRadioButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(nameRadio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(addressRadio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel5Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jRadioButton4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jRadioButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(salaryRadio, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(shiftRadio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(170, 170, 170))
         );
 
@@ -525,19 +548,149 @@ public class ViewDoctorsFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    private void addDoctorToTable(){
+    private void sortDoctor() {
+        String selected = sortSelector.getSelectedItem().toString().trim(); // trimming to remove excess white space
+        System.out.println(selected);
+        String[] allDetails = new String[Configuration.doctorList.size() * 4]; // just so we copy all the values into this array in order.
+        String[] array = config.copyToTempList(Configuration.doctorList, selected);
+        StringSort sort = new StringSort(array);
+        String[] sorted = sort.getSortedArray();
+
+        // copying all the details 
+        int counter = 0;
+        for (Doctor doc : Configuration.doctorList) {
+            allDetails[counter] = doc.getName();
+            allDetails[counter + 1] = doc.getAddress();
+            allDetails[counter + 2] = doc.getShift();
+            allDetails[counter + 3] = Integer.toString(doc.getSalary());
+            counter += 4;
+        }
+        ArrayList<Doctor> tempList = new ArrayList<>();
+
+        for (int i = 0; i < sorted.length; i++) {  // for iterating through sorted list
+            for (int j = 0; j < allDetails.length; j++) { // for iterating through all details list
+                if (allDetails[j].equals(sorted[i])) { // checking each element for match
+                    if (selected.equals("Name")) { // changing parameters accoring to what things are sorted
+                        if (!tempList.contains(new Doctor(allDetails[j], allDetails[j + 1], allDetails[j + 2], Integer.parseInt(allDetails[j + 3])))) {
+                            tempList.add(new Doctor(allDetails[j], allDetails[j + 1], allDetails[j + 2], Integer.parseInt(allDetails[j + 3])));
+                        }
+                    } else if (selected.equals("Address")) {
+                        if (!tempList.contains(new Doctor(allDetails[j - 1], allDetails[j], allDetails[j + 1], Integer.parseInt(allDetails[j + 2])))) {
+                            tempList.add(new Doctor(allDetails[j - 1], allDetails[j], allDetails[j + 1], Integer.parseInt(allDetails[j + 2])));
+                        }
+                    } else if (selected.equals("Shift")) {
+                        ArrayList<Doctor> cloneList = (ArrayList<Doctor>) tempList.clone();
+                        boolean addedOrNot = false;
+                        int temp = j;
+                        if (cloneList.size() > 0) {
+                            while (addedOrNot) {
+                                for (Doctor doc : cloneList) {
+                                    if (!(doc.equals(new Doctor(allDetails[temp - 2], allDetails[temp - 1], allDetails[temp], Integer.parseInt(allDetails[temp + 1]))))) {
+                                        tempList.add(new Doctor(allDetails[temp - 2], allDetails[temp - 1], allDetails[temp], Integer.parseInt(allDetails[temp + 1])));
+                                        addedOrNot = true;
+                                    } else {
+                                        temp += 4;
+                                    }
+                                }
+                            }
+                        } else {
+                            tempList.add(new Doctor(allDetails[j - 2], allDetails[j - 1], allDetails[j], Integer.parseInt(allDetails[j + 1])));
+                        }
+
+                    } else if (selected.equals("Salary")) {
+                        if (!tempList.equals(new Doctor(allDetails[j - 3], allDetails[j - 2], allDetails[j - 1], Integer.parseInt(allDetails[j])))) {
+                            tempList.add(new Doctor(allDetails[j - 3], allDetails[j - 2], allDetails[j - 1], Integer.parseInt(allDetails[j])));
+                        }
+                    }
+                }
+
+            }
+
+        }
+
+        Configuration.doctorList = (ArrayList<Doctor>) tempList.clone();
+        System.out.println(Configuration.doctorList.size());
+        for (Doctor doc : Configuration.doctorList) {
+            System.out.println(doc.toString());
+        }
+
+    }
+
+    private void searchDoctor() {
         String keyword = searchField.getText();
         // validating if searchbox is empty or there is placeholder still
-        if(keyword.isEmpty() || keyword.contains("Type")){
-           
-            
-            
-            
-        }else{
-            System.out.println("Not");
+        String selected = "";
+        if (nameRadio.isSelected()) {
+            selected = "Name";
+        } else if (addressRadio.isSelected()) {
+            selected = "Address";
+        } else if (shiftRadio.isSelected()) {
+            selected = "Shift";
+        } else if (salaryRadio.isSelected()) {
+            selected = "Salary";
         }
-        
-    
+
+        String[] tempList = new String[Configuration.doctorList.size()];
+        if (!(keyword.isEmpty() || keyword.contains("Type")) && (!selected.isEmpty())) {
+            String[] allDetails = new String[Configuration.doctorList.size() * 4]; // just so we copy all the values into this array in order.
+            String[] array = config.copyToTempList(Configuration.doctorList, selected);
+            StringSort sort = new StringSort(array);
+            String[] sorted = sort.getSortedArray();
+            StringSearch search = new StringSearch(sorted, keyword);
+            int index = search.getFoundIndex();
+            System.out.println(Arrays.toString(sorted));
+            // copying all the details 
+            int counter = 0;
+            for (Doctor doc : Configuration.doctorList) {
+                allDetails[counter] = doc.getName();
+                allDetails[counter + 1] = doc.getAddress();
+                allDetails[counter + 2] = doc.getShift();
+                allDetails[counter + 3] = Integer.toString(doc.getSalary());
+                counter += 4;
+            }
+            System.out.println(Arrays.toString(allDetails));
+
+            // if found index is greater than 0(if it is less than error)
+            if (index >= 0) {
+                int count = 0;
+                for (String names : allDetails) {
+                    if (sorted[index].equals(names)) {
+                        break;
+                    }
+                    count++;
+
+                }//0    1       2       3       4   5       6       7   8      9    10      11
+                //[name,address,shift,salary,name,address,shift,salary,name,address,shift,salary,]
+                System.out.println(count);
+                System.out.println(allDetails[count]);
+
+                if (selected.equals("Name")) {
+                    JOptionPane.showMessageDialog(rootPane, "Doctor Name : " + allDetails[count]
+                            + "\n " + "Address : " + allDetails[count + 1] + "\n " + "Shift : " + allDetails[count + 2]
+                            + "\n " + "Salary : " + allDetails[count + 3] + "\n ", "  " + allDetails[count], JOptionPane.INFORMATION_MESSAGE);
+                } else if (selected.equals("Address")) {
+                    JOptionPane.showMessageDialog(rootPane, "Doctor Name : " + allDetails[count - 1]
+                            + "\n " + "Address : " + allDetails[count] + "\n " + "Shift : " + allDetails[count + 2]
+                            + "\n " + "Salary : " + allDetails[count + 3] + "\n ", "Found", JOptionPane.INFORMATION_MESSAGE);
+                } else if (selected.equals("Shift")) {
+                    JOptionPane.showMessageDialog(rootPane, "Doctor Name : " + allDetails[count - 2]
+                            + "\n " + "Address : " + allDetails[count - 1] + "\n " + "Shift : " + allDetails[count]
+                            + "\n " + "Salary : " + allDetails[count + 1] + "\n ", "Found", JOptionPane.INFORMATION_MESSAGE);
+                } else if (selected.equals("Salary")) {
+                    JOptionPane.showMessageDialog(rootPane, "Doctor Name : " + allDetails[count - 3]
+                            + "\n " + "Address : " + allDetails[count - 2] + "\n " + "Shift : " + allDetails[count - 1]
+                            + "\n " + "Salary : " + allDetails[count] + "\n ", "Found", JOptionPane.INFORMATION_MESSAGE);
+                }
+
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Nothing Found! Please change the keyword. ", "Error", JOptionPane.ERROR_MESSAGE);
+
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Please type the keyword and click on the radio button to search", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
     }
     private void addPatientButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPatientButtonActionPerformed
         // TODO add your handling code here:
@@ -547,6 +700,9 @@ public class ViewDoctorsFrame extends javax.swing.JFrame {
 
     private void manageButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageButtonActionPerformed
         // TODO add your handling code here:
+        new MainFrame().setVisible(true);
+        Configuration config = new Configuration();
+        config.closeFrameAfer(this);
     }//GEN-LAST:event_manageButtonActionPerformed
 
     private void addDoctorButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addDoctorButtonActionPerformed
@@ -573,17 +729,17 @@ public class ViewDoctorsFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_viewDoctorsButtonActionPerformed
 
-    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
+    private void sortSelectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sortSelectorActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox2ActionPerformed
+    }//GEN-LAST:event_sortSelectorActionPerformed
 
-    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
+    private void nameRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameRadioActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton1ActionPerformed
+    }//GEN-LAST:event_nameRadioActionPerformed
 
-    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
+    private void addressRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addressRadioActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton2ActionPerformed
+    }//GEN-LAST:event_addressRadioActionPerformed
 
     private void searchFieldMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchFieldMouseClicked
         // TODO add your handling code here:
@@ -596,22 +752,35 @@ public class ViewDoctorsFrame extends javax.swing.JFrame {
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
         // TODO add your handling code here:
-        addDoctorToTable();
+
+        searchDoctor();
     }//GEN-LAST:event_searchButtonActionPerformed
+
+    private void shiftRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_shiftRadioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_shiftRadioActionPerformed
+
+    private void sortSelectorItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_sortSelectorItemStateChanged
+        // TODO add your handling code here:
+        if (evt.getStateChange() == (java.awt.event.ItemEvent.DESELECTED)) { // checking if event is selected or deselected.
+            // if state is changed and is deselected then the code will rull.
+            sortDoctor();
+        }
+
+        config.addDoctorToTable(doctorsTable);
+    }//GEN-LAST:event_sortSelectorItemStateChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addDoctorButton;
     private javax.swing.JButton addPatientButton;
+    private javax.swing.JRadioButton addressRadio;
     private javax.swing.JButton assignPatientButton;
     private javax.swing.JButton contactButton;
     private javax.swing.JTable doctorsTable;
     private javax.swing.JButton helpTextButton;
-    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
@@ -622,13 +791,16 @@ public class ViewDoctorsFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton3;
-    private javax.swing.JRadioButton jRadioButton4;
     private javax.swing.JButton manageButton;
+    private javax.swing.JRadioButton nameRadio;
+    private javax.swing.JRadioButton salaryRadio;
     private javax.swing.JButton searchButton;
+    private javax.swing.ButtonGroup searchButtonGroup;
     private javax.swing.JTextField searchField;
+    private javax.swing.JLabel searchIcon;
+    private javax.swing.JLabel searchLabel;
+    private javax.swing.JRadioButton shiftRadio;
+    private javax.swing.JComboBox<String> sortSelector;
     private javax.swing.JScrollPane tableScrollPane;
     private javax.swing.JButton viewDoctorsButton;
     // End of variables declaration//GEN-END:variables

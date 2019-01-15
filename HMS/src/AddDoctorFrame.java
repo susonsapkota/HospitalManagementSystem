@@ -557,7 +557,6 @@ Configuration config;
     private void addPatientButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPatientButtonActionPerformed
         // TODO add your handling code here:
         new AddPatientFrame();
-        
         config.closeFrameAfer(this);
 
     }//GEN-LAST:event_addPatientButtonActionPerformed

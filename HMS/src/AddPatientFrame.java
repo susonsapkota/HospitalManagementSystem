@@ -1,11 +1,6 @@
 
 import java.awt.Font;
-import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import javax.swing.JOptionPane;
-import javax.swing.Timer;
 import javax.swing.table.DefaultTableModel;
 
 /*
@@ -19,8 +14,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class AddPatientFrame extends javax.swing.JFrame {
 
-   
-    private Configuration config ;
+    private Configuration config;
 
     /**
      * Creates new form mainFrame
@@ -33,8 +27,6 @@ public class AddPatientFrame extends javax.swing.JFrame {
         config.addPatientToTable(patientTable);
         setVisible(true);
     }
-
-
 
     /**
      * This method is called from within the constructor to initialize the form.
