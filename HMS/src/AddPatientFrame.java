@@ -24,7 +24,7 @@ public class AddPatientFrame extends javax.swing.JFrame {
         config.setIconAndTitle(this, "Add Patient");
         initComponents();
         config.selectDoctorForPatient(doctorComboBox);
-        config.addPatientToTable(patientTable);
+        addPatient();
         setVisible(true);
     }
 
@@ -609,6 +609,21 @@ public class AddPatientFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public void addPatient() {
+
+        DefaultTableModel model = (DefaultTableModel) patientTable.getModel();
+        for (Patient patient : Configuration.patientList) {
+            model.addRow(new Object[]{});
+            int myRow = model.getRowCount() - 1;
+            patientTable.setValueAt(patient.getName(), myRow, 0);
+            patientTable.setValueAt(patient.getAge(), myRow, 1);
+            patientTable.setValueAt(patient.getSex(), myRow, 2);
+            patientTable.setValueAt(patient.getSeverity(), myRow, 3);
+            patientTable.setValueAt(patient.getDoctor().getName(), myRow, 4);
+
+        }
+
+    }
     private void addPatientButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPatientButtonActionPerformed
         // TODO add your handling code here:
 

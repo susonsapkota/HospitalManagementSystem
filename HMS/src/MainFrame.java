@@ -1,5 +1,9 @@
 
+import java.awt.Desktop;
 import java.awt.Toolkit;
+import java.io.IOException;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -22,7 +26,7 @@ public class MainFrame extends javax.swing.JFrame {
         Configuration config = new Configuration();
         config.loadDefaultDoctors();
         config.loadDefaultPatient();
-        
+
     }
 
     /**
@@ -42,14 +46,22 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        assignPatientButton = new javax.swing.JButton();
+        viewPatientButton = new javax.swing.JButton();
         helpTextButton = new javax.swing.JButton();
         contactButton = new javax.swing.JButton();
         viewDoctorsButton = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
+        jPanel5 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
+        openMenu = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        exitMenu = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
+        jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuItem5 = new javax.swing.JMenuItem();
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -162,22 +174,23 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
-        assignPatientButton.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        assignPatientButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/addDetails.png"))); // NOI18N
-        assignPatientButton.setText(" Assign Patient");
-        assignPatientButton.setAlignmentY(0.0F);
-        assignPatientButton.setBorder(javax.swing.BorderFactory.createCompoundBorder());
-        assignPatientButton.setBorderPainted(false);
-        assignPatientButton.setFocusPainted(false);
-        assignPatientButton.setFocusable(false);
-        assignPatientButton.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        assignPatientButton.setMargin(new java.awt.Insets(0, 14, 0, 14));
-        assignPatientButton.setMaximumSize(new java.awt.Dimension(180, 60));
-        assignPatientButton.setMinimumSize(new java.awt.Dimension(180, 60));
-        assignPatientButton.setPreferredSize(new java.awt.Dimension(180, 60));
-        assignPatientButton.addActionListener(new java.awt.event.ActionListener() {
+        viewPatientButton.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        viewPatientButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/addDetails.png"))); // NOI18N
+        viewPatientButton.setText("  View Patient");
+        viewPatientButton.setActionCommand("View Patient");
+        viewPatientButton.setAlignmentY(0.0F);
+        viewPatientButton.setBorder(javax.swing.BorderFactory.createCompoundBorder());
+        viewPatientButton.setBorderPainted(false);
+        viewPatientButton.setFocusPainted(false);
+        viewPatientButton.setFocusable(false);
+        viewPatientButton.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        viewPatientButton.setMargin(new java.awt.Insets(0, 14, 0, 14));
+        viewPatientButton.setMaximumSize(new java.awt.Dimension(180, 60));
+        viewPatientButton.setMinimumSize(new java.awt.Dimension(180, 60));
+        viewPatientButton.setPreferredSize(new java.awt.Dimension(180, 60));
+        viewPatientButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                assignPatientButtonActionPerformed(evt);
+                viewPatientButtonActionPerformed(evt);
             }
         });
 
@@ -249,7 +262,7 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(manageButton, javax.swing.GroupLayout.PREFERRED_SIZE, 438, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(addPatientButton, javax.swing.GroupLayout.PREFERRED_SIZE, 438, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(addDoctorButton, javax.swing.GroupLayout.PREFERRED_SIZE, 438, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(assignPatientButton, javax.swing.GroupLayout.PREFERRED_SIZE, 438, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(viewPatientButton, javax.swing.GroupLayout.PREFERRED_SIZE, 438, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(helpTextButton, javax.swing.GroupLayout.PREFERRED_SIZE, 438, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(contactButton, javax.swing.GroupLayout.PREFERRED_SIZE, 438, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(viewDoctorsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 438, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -267,7 +280,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(addDoctorButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(assignPatientButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(viewPatientButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(viewDoctorsButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 226, Short.MAX_VALUE)
@@ -277,23 +290,82 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGap(62, 62, 62))
         );
 
-        jPanel4.setBackground(new java.awt.Color(100, 149, 237));
+        jPanel4.setBackground(java.awt.Color.darkGray);
+
+        jPanel5.setBackground(new java.awt.Color(56, 28, 87));
+        jPanel5.setForeground(new java.awt.Color(56, 28, 87));
+
+        jLabel3.setBackground(new java.awt.Color(56, 28, 87));
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/rsz_help.jpg"))); // NOI18N
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 459, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1033, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1463, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addGap(0, 980, Short.MAX_VALUE)
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         jMenu1.setText("File");
+
+        openMenu.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
+        openMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Open.png"))); // NOI18N
+        openMenu.setText("Open");
+        openMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                openMenuActionPerformed(evt);
+            }
+        });
+        jMenu1.add(openMenu);
+
+        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Save.png"))); // NOI18N
+        jMenuItem2.setText("Save");
+        jMenuItem2.setToolTipText("");
+        jMenu1.add(jMenuItem2);
+        jMenu1.add(jSeparator1);
+
+        exitMenu.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.ALT_MASK));
+        exitMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Exit resize.png"))); // NOI18N
+        exitMenu.setText("Exit");
+        exitMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exitMenuActionPerformed(evt);
+            }
+        });
+        jMenu1.add(exitMenu);
+
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Edit");
+        jMenu2.setText("Help");
+
+        jMenuItem4.setText("About Us");
+        jMenu2.add(jMenuItem4);
+
+        jMenuItem5.setText("User Guide");
+        jMenu2.add(jMenuItem5);
+
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
@@ -334,9 +406,12 @@ public class MainFrame extends javax.swing.JFrame {
         setVisible(false);
     }//GEN-LAST:event_addDoctorButtonActionPerformed
 
-    private void assignPatientButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_assignPatientButtonActionPerformed
+    private void viewPatientButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewPatientButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_assignPatientButtonActionPerformed
+        new ViewPatientFrame();
+        setVisible(false);
+
+    }//GEN-LAST:event_viewPatientButtonActionPerformed
 
     private void helpTextButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_helpTextButtonActionPerformed
         // TODO add your handling code here:
@@ -354,10 +429,28 @@ public class MainFrame extends javax.swing.JFrame {
         setVisible(false);
     }//GEN-LAST:event_viewDoctorsButtonActionPerformed
 
+    private void exitMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitMenuActionPerformed
+        // TODO add your handling code here:
+        dispose();
+        System.exit(0);
+    }//GEN-LAST:event_exitMenuActionPerformed
+
+    private void openMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openMenuActionPerformed
+        // TODO add your handling code here:
+        JFileChooser chooser = new JFileChooser();
+        int r = chooser.showOpenDialog(openMenu);
+        if (r == JFileChooser.APPROVE_OPTION) {
+            try {
+                Desktop.getDesktop().open(chooser.getSelectedFile());
+            } catch (IOException e1) {
+                JOptionPane.showMessageDialog(openMenu, "Could not open file " + chooser.getSelectedFile().getAbsolutePath());
+            }
+        }
+    }//GEN-LAST:event_openMenuActionPerformed
+
     /**
      * @param args the command line arguments
      */
-    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -384,9 +477,9 @@ public class MainFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                
+
                 new MainFrame().setVisible(true);
-                
+
             }
         });
     }
@@ -394,19 +487,27 @@ public class MainFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addDoctorButton;
     private javax.swing.JButton addPatientButton;
-    private javax.swing.JButton assignPatientButton;
     private javax.swing.JButton contactButton;
+    private javax.swing.JMenuItem exitMenu;
     private javax.swing.JButton helpTextButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JButton manageButton;
+    private javax.swing.JMenuItem openMenu;
     private javax.swing.JButton viewDoctorsButton;
+    private javax.swing.JButton viewPatientButton;
     // End of variables declaration//GEN-END:variables
 }

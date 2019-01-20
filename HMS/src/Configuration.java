@@ -66,16 +66,19 @@ public class Configuration {
     public void addPatientToTable(JTable table) {
 
         DefaultTableModel model = (DefaultTableModel) table.getModel();
+        model.setRowCount(0);
         for (Patient patient : Configuration.patientList) {
             model.addRow(new Object[]{});
             int myRow = model.getRowCount() - 1;
             table.setValueAt(patient.getName(), myRow, 0);
             table.setValueAt(patient.getAge(), myRow, 1);
             table.setValueAt(patient.getSex(), myRow, 2);
-            table.setValueAt(patient.getSeverity(), myRow, 3);
-            table.setValueAt(patient.getDoctor().getName(), myRow, 4);
+            table.setValueAt(patient.getAddress(), myRow, 3);
+            table.setValueAt(patient.getSeverity(), myRow, 4);
+            table.setValueAt(patient.getDoctor().getName(), myRow, 5);
 
         }
+
     }
 
     public void addDoctorToTable(JTable table) {
@@ -126,7 +129,7 @@ public class Configuration {
                 doc.getName(), JOptionPane.INFORMATION_MESSAGE);
     }
 
-    public String[] copyToTempList(ArrayList<Doctor> doc, String keyword) {
+    public String[] copyDocToTempList(ArrayList<Doctor> doc, String keyword) {
         String[] tempList = new String[doc.size()];
         int i = 0;
         if (keyword.equals("Name")) {
@@ -153,7 +156,51 @@ public class Configuration {
                 i++;
             }
             return tempList;
-        } 
+        }
+        return tempList;
+    }
+
+    public String[] copyPatientToTempList(ArrayList<Patient> patient, String keyword) {
+        String[] tempList = new String[patient.size()];
+        int i = 0;
+        if (keyword.equals("Name")) {
+            for (Patient patnt : patient) {
+                tempList[i] = patnt.getName();
+                i++;
+            }
+            return tempList;
+        } else if (keyword.equals("Address")) {
+            for (Patient patnt : patient) {
+                tempList[i] = patnt.getAddress();
+                i++;
+            }
+            return tempList;
+        } else if (keyword.equals("Age")) {
+            for (Patient patnt : patient) {
+                tempList[i] = Integer.toString(patnt.getAge());
+                i++;
+            }
+            return tempList;
+        } else if (keyword.equals("Sex")) {
+            for (Patient patnt : patient) {
+                tempList[i] = patnt.getSex();
+                i++;
+            }
+            return tempList;
+        } else if (keyword.equals("Doctor")) {
+            for (Patient patnt : patient) {
+                tempList[i] = patnt.getDoctor().getName();
+                i++;
+            }
+            return tempList;
+        } else if (keyword.equals("Severity")) {
+            for (Patient patnt : patient) {
+                tempList[i] = patnt.getSeverity();
+                i++;
+            }
+            return tempList;
+        }
+
         return tempList;
     }
 
@@ -193,4 +240,99 @@ public class Configuration {
         }
         return tempDoc;
     }
+
+    public int moreOnDoctorList(String keyword, String searched) {
+        int count = 0;
+
+        if (searched.equals("Name")) {
+            for (Doctor doc : Configuration.doctorList) {
+                if (doc.getName().equals(keyword)) {
+                    count++;
+                }
+            }
+
+        } else if (searched.equals("Address")) {
+            for (Doctor doc : Configuration.doctorList) {
+                if (doc.getAddress().equals(keyword)) {
+                    count++;
+                }
+
+            }
+        } else if (searched.equals("Shift")) {
+            for (Doctor doc : Configuration.doctorList) {
+                if (doc.getShift().equals(keyword)) {
+                    count++;
+                }
+
+            }
+        } else if (searched.equals("Salary")) {
+            for (Doctor doc : Configuration.doctorList) {
+                if (doc.getSalary() == Integer.parseInt(keyword)) {
+                    count++;
+                }
+
+            }
+        }
+        if (count > 0) {
+            return count - 1;
+        } else {
+            return 0;
+        }
+
+    }
+
+    public int moreOnPatientList(String keyword, String searched) {
+        int count = 0;
+
+        if (searched.equals("Name")) {
+            for (Patient pat : Configuration.patientList) {
+                if (pat.getName().equals(keyword)) {
+                    count++;
+                }
+            }
+
+        } else if (searched.equals("Sex")) {
+            for (Patient pat : Configuration.patientList) {
+                if (pat.getSex().equals(keyword)) {
+                    count++;
+                }
+
+            }
+        } else if (searched.equals("Address")) {
+            for (Patient pat : Configuration.patientList) {
+                if (pat.getAddress().equals(keyword)) {
+                    count++;
+                }
+
+            }
+        } else if (searched.equals("Age")) {
+            for (Patient pat : Configuration.patientList) {
+                if (pat.getAge() == Integer.parseInt(keyword)) {
+                    count++;
+                }
+
+            }
+        } else if (searched.equals("Severity")) {
+            for (Patient pat : Configuration.patientList) {
+                if (pat.getSeverity().equals(keyword)) {
+                    count++;
+                }
+
+            }
+        } else if (searched.equals("Doctor")) {
+            for (Patient pat : Configuration.patientList) {
+                if (pat.getDoctor().getName().equals(keyword)) {
+                    count++;
+                }
+
+            }
+        }
+        if (count > 0) {
+            return count - 1;
+        } else {
+            return 0;
+        }
+
+    }
+    
 }

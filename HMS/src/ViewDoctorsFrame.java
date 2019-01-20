@@ -1,13 +1,8 @@
 
-import com.sun.org.apache.bcel.internal.generic.AALOAD;
 import java.awt.Font;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
-import java.util.LinkedHashSet;
-import java.util.Set;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -21,6 +16,7 @@ import javax.swing.table.DefaultTableModel;
 public class ViewDoctorsFrame extends javax.swing.JFrame {
 
     Configuration config;
+    StopWatch time;
 
     /**
      * Creates new form AddPatientFrames
@@ -71,6 +67,7 @@ public class ViewDoctorsFrame extends javax.swing.JFrame {
         tableScrollPane = new javax.swing.JScrollPane();
         doctorsTable = new javax.swing.JTable();
         jPanel7 = new javax.swing.JPanel();
+        statusLabel = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
@@ -187,7 +184,7 @@ public class ViewDoctorsFrame extends javax.swing.JFrame {
 
         assignPatientButton.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         assignPatientButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/addDetails.png"))); // NOI18N
-        assignPatientButton.setText(" Assign Patient");
+        assignPatientButton.setText(" View Patient");
         assignPatientButton.setAlignmentY(0.0F);
         assignPatientButton.setBorder(javax.swing.BorderFactory.createCompoundBorder());
         assignPatientButton.setBorderPainted(false);
@@ -502,17 +499,28 @@ public class ViewDoctorsFrame extends javax.swing.JFrame {
                 .addGap(31, 31, 31))
         );
 
-        jPanel7.setBackground(new java.awt.Color(255, 102, 51));
+        jPanel7.setBackground(new java.awt.Color(69, 123, 157));
+
+        statusLabel.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        statusLabel.setForeground(new java.awt.Color(255, 255, 255));
+        statusLabel.setText(" ");
+        statusLabel.setToolTipText("");
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(statusLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 1247, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 76, Short.MAX_VALUE)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(statusLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jMenu1.setText("File");
@@ -548,11 +556,10 @@ public class ViewDoctorsFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    private void sortDoctor() {
-        String selected = sortSelector.getSelectedItem().toString().trim(); // trimming to remove excess white space
-        System.out.println(selected);
+    private void sortDoctor(String selected) {
+
         String[] allDetails = new String[Configuration.doctorList.size() * 4]; // just so we copy all the values into this array in order.
-        String[] array = config.copyToTempList(Configuration.doctorList, selected);
+        String[] array = config.copyDocToTempList(Configuration.doctorList, selected);
         StringSort sort = new StringSort(array);
         String[] sorted = sort.getSortedArray();
 
@@ -579,26 +586,12 @@ public class ViewDoctorsFrame extends javax.swing.JFrame {
                             tempList.add(new Doctor(allDetails[j - 1], allDetails[j], allDetails[j + 1], Integer.parseInt(allDetails[j + 2])));
                         }
                     } else if (selected.equals("Shift")) {
-                        ArrayList<Doctor> cloneList = (ArrayList<Doctor>) tempList.clone();
-                        boolean addedOrNot = false;
-                        int temp = j;
-                        if (cloneList.size() > 0) {
-                            while (addedOrNot) {
-                                for (Doctor doc : cloneList) {
-                                    if (!(doc.equals(new Doctor(allDetails[temp - 2], allDetails[temp - 1], allDetails[temp], Integer.parseInt(allDetails[temp + 1]))))) {
-                                        tempList.add(new Doctor(allDetails[temp - 2], allDetails[temp - 1], allDetails[temp], Integer.parseInt(allDetails[temp + 1])));
-                                        addedOrNot = true;
-                                    } else {
-                                        temp += 4;
-                                    }
-                                }
-                            }
-                        } else {
+                        if (!tempList.contains(new Doctor(allDetails[j - 2], allDetails[j - 1], allDetails[j], Integer.parseInt(allDetails[j + 1])))) {
                             tempList.add(new Doctor(allDetails[j - 2], allDetails[j - 1], allDetails[j], Integer.parseInt(allDetails[j + 1])));
                         }
 
                     } else if (selected.equals("Salary")) {
-                        if (!tempList.equals(new Doctor(allDetails[j - 3], allDetails[j - 2], allDetails[j - 1], Integer.parseInt(allDetails[j])))) {
+                        if (!tempList.contains(new Doctor(allDetails[j - 3], allDetails[j - 2], allDetails[j - 1], Integer.parseInt(allDetails[j])))) {
                             tempList.add(new Doctor(allDetails[j - 3], allDetails[j - 2], allDetails[j - 1], Integer.parseInt(allDetails[j])));
                         }
                     }
@@ -607,33 +600,22 @@ public class ViewDoctorsFrame extends javax.swing.JFrame {
             }
 
         }
+        
+      
 
         Configuration.doctorList = (ArrayList<Doctor>) tempList.clone();
-        System.out.println(Configuration.doctorList.size());
-        for (Doctor doc : Configuration.doctorList) {
-            System.out.println(doc.toString());
-        }
 
     }
 
-    private void searchDoctor() {
+    private void searchDoctor(String selected) {
+        time = new StopWatch();
         String keyword = searchField.getText();
         // validating if searchbox is empty or there is placeholder still
-        String selected = "";
-        if (nameRadio.isSelected()) {
-            selected = "Name";
-        } else if (addressRadio.isSelected()) {
-            selected = "Address";
-        } else if (shiftRadio.isSelected()) {
-            selected = "Shift";
-        } else if (salaryRadio.isSelected()) {
-            selected = "Salary";
-        }
 
         String[] tempList = new String[Configuration.doctorList.size()];
         if (!(keyword.isEmpty() || keyword.contains("Type")) && (!selected.isEmpty())) {
             String[] allDetails = new String[Configuration.doctorList.size() * 4]; // just so we copy all the values into this array in order.
-            String[] array = config.copyToTempList(Configuration.doctorList, selected);
+            String[] array = config.copyDocToTempList(Configuration.doctorList, selected);
             StringSort sort = new StringSort(array);
             String[] sorted = sort.getSortedArray();
             StringSearch search = new StringSearch(sorted, keyword);
@@ -661,10 +643,10 @@ public class ViewDoctorsFrame extends javax.swing.JFrame {
 
                 }//0    1       2       3       4   5       6       7   8      9    10      11
                 //[name,address,shift,salary,name,address,shift,salary,name,address,shift,salary,]
-                System.out.println(count);
-                System.out.println(allDetails[count]);
 
+                
                 if (selected.equals("Name")) {
+                    time.stop();
                     JOptionPane.showMessageDialog(rootPane, "Doctor Name : " + allDetails[count]
                             + "\n " + "Address : " + allDetails[count + 1] + "\n " + "Shift : " + allDetails[count + 2]
                             + "\n " + "Salary : " + allDetails[count + 3] + "\n ", "  " + allDetails[count], JOptionPane.INFORMATION_MESSAGE);
@@ -683,11 +665,13 @@ public class ViewDoctorsFrame extends javax.swing.JFrame {
                 }
 
             } else {
+                time.stop();
                 JOptionPane.showMessageDialog(rootPane, "Nothing Found! Please change the keyword. ", "Error", JOptionPane.ERROR_MESSAGE);
 
             }
 
         } else {
+            time.stop();
             JOptionPane.showMessageDialog(rootPane, "Please type the keyword and click on the radio button to search", "Error", JOptionPane.ERROR_MESSAGE);
         }
 
@@ -752,8 +736,31 @@ public class ViewDoctorsFrame extends javax.swing.JFrame {
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
         // TODO add your handling code here:
+        String selected = "";
+        if (nameRadio.isSelected()) {
+            selected = "Name";
+        } else if (addressRadio.isSelected()) {
+            selected = "Address";
+        } else if (shiftRadio.isSelected()) {
+            selected = "Shift";
+        } else if (salaryRadio.isSelected()) {
+            selected = "Salary";
+        }
+        if (!selected.isEmpty()) {
+            StopWatch watch = new StopWatch();
 
-        searchDoctor();
+            sortDoctor(selected);
+            watch.stop();
+            config.addDoctorToTable(doctorsTable);
+            searchDoctor(selected);
+            String keyword = searchField.getText();
+
+            statusLabel.setText("That sort and search took "
+                    + (watch.timeElapsed() + time.timeElapsed())
+                    + " ms for " + Configuration.doctorList.size()
+                    + " entries. " + (config.moreOnDoctorList(keyword, selected)) + " more similar entries found on same categeory.");
+
+        }
     }//GEN-LAST:event_searchButtonActionPerformed
 
     private void shiftRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_shiftRadioActionPerformed
@@ -764,7 +771,14 @@ public class ViewDoctorsFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (evt.getStateChange() == (java.awt.event.ItemEvent.DESELECTED)) { // checking if event is selected or deselected.
             // if state is changed and is deselected then the code will rull.
-            sortDoctor();
+            String selected = sortSelector.getSelectedItem().toString().trim(); // trimming to remove excess white space
+            if (!selected.equals("None")) {
+                StopWatch watch = new StopWatch();
+                sortDoctor(selected);
+                watch.stop();
+                statusLabel.setText("That sort took " + watch.timeElapsed() + " ms for " + Configuration.doctorList.size() + " entries.");
+            }
+
         }
 
         config.addDoctorToTable(doctorsTable);
@@ -801,6 +815,7 @@ public class ViewDoctorsFrame extends javax.swing.JFrame {
     private javax.swing.JLabel searchLabel;
     private javax.swing.JRadioButton shiftRadio;
     private javax.swing.JComboBox<String> sortSelector;
+    private javax.swing.JLabel statusLabel;
     private javax.swing.JScrollPane tableScrollPane;
     private javax.swing.JButton viewDoctorsButton;
     // End of variables declaration//GEN-END:variables

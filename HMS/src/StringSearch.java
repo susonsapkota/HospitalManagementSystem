@@ -27,7 +27,7 @@ public class StringSearch {
 
             int res = searchedValue.compareTo(myArray[midIndex]);
 
-            // Check if x is present at mid 
+            // Check if the value is present at mid 
             if (res == 0) {
                 return midIndex;
             }

@@ -1,5 +1,5 @@
 
-import java.util.ArrayList;
+import java.util.Objects;
 
 /*
 * To change this license header, choose License Headers in Project Properties.
@@ -18,7 +18,6 @@ public class Patient {
     private String address;
     private String severity;
     private Doctor doctor;
-    private ArrayList<Billing> billing;
 
     public Patient(String name, int age, String sex, String address, String severity, Doctor doctor) {
         this.name = name;
@@ -27,23 +26,8 @@ public class Patient {
         this.address = address;
         this.severity = severity;
         this.doctor = doctor;
-        billing = new ArrayList<>();
-        billing.add(new Billing("Admission Fee", 500));
     }
 
-    public void addBill(String description, float fee) {
-        if (fee > 0) {
-            this.billing.add(new Billing(description, fee));
-        }
-    }
-
-    public float getTotalCost() {
-        float totalFee = 0;
-        for (Billing bill : this.billing) {
-            totalFee += bill.getCost();
-        }
-        return totalFee;
-    }
 
     public String getName() {
         return name;
@@ -92,5 +76,58 @@ public class Patient {
     public void setDoctor(Doctor doctor) {
         this.doctor = doctor;
     }
+
+    @Override
+    public String toString() {
+        return "Patient{" + "name=" + name + ", age=" + age + ", sex=" + sex + ", address=" + address + ", severity=" + severity + ", doctor=" + doctor +'}';
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 37 * hash + Objects.hashCode(this.name);
+        hash = 37 * hash + this.age;
+        hash = 37 * hash + Objects.hashCode(this.sex);
+        hash = 37 * hash + Objects.hashCode(this.address);
+        hash = 37 * hash + Objects.hashCode(this.severity);
+        hash = 37 * hash + Objects.hashCode(this.doctor);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Patient other = (Patient) obj;
+        if (this.age != other.age) {
+            return false;
+        }
+        if (!Objects.equals(this.name, other.name)) {
+            return false;
+        }
+        if (!Objects.equals(this.sex, other.sex)) {
+            return false;
+        }
+        if (!Objects.equals(this.address, other.address)) {
+            return false;
+        }
+        if (!Objects.equals(this.severity, other.severity)) {
+            return false;
+        }
+        if (!Objects.equals(this.doctor, other.doctor)) {
+            return false;
+        }
+
+        return true;
+    }
+
+
 
 }

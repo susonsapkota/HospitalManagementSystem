@@ -23,7 +23,7 @@ Configuration config;
      * Creates new form mainFrame
      */
     public AddDoctorFrame() {
-        Configuration config = new Configuration();
+        config = new Configuration();
         config.setIconAndTitle(this, "Add Doctor");
         initComponents();
         addDoctors();
