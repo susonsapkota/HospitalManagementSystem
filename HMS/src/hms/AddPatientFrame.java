@@ -1,7 +1,10 @@
 package hms;
 
 
+import java.awt.Desktop;
 import java.awt.Font;
+import java.io.IOException;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -41,6 +44,7 @@ public class AddPatientFrame extends javax.swing.JFrame {
 
         jPanel2 = new javax.swing.JPanel();
         sexButtonGroup = new javax.swing.ButtonGroup();
+        jMenuItem3 = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         homeButton = new javax.swing.JButton();
         addPatientButton = new javax.swing.JButton();
@@ -77,7 +81,13 @@ public class AddPatientFrame extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
+        openMenu = new javax.swing.JMenuItem();
+        saveMenu = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        exitButton = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
+        aboutUsMenu = new javax.swing.JMenuItem();
+        helpMenu = new javax.swing.JMenuItem();
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -89,6 +99,8 @@ public class AddPatientFrame extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 100, Short.MAX_VALUE)
         );
+
+        jMenuItem3.setText("jMenuItem3");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 0, 0));
@@ -584,9 +596,58 @@ public class AddPatientFrame extends javax.swing.JFrame {
         );
 
         jMenu1.setText("File");
+
+        openMenu.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
+        openMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Open.png"))); // NOI18N
+        openMenu.setText("Open");
+        openMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                openMenuActionPerformed(evt);
+            }
+        });
+        jMenu1.add(openMenu);
+
+        saveMenu.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
+        saveMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Save.png"))); // NOI18N
+        saveMenu.setText("Save");
+        saveMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveMenuActionPerformed(evt);
+            }
+        });
+        jMenu1.add(saveMenu);
+        jMenu1.add(jSeparator1);
+
+        exitButton.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.ALT_MASK));
+        exitButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Exit resize.png"))); // NOI18N
+        exitButton.setText("Exit");
+        exitButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exitButtonActionPerformed(evt);
+            }
+        });
+        jMenu1.add(exitButton);
+
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Edit");
+
+        aboutUsMenu.setText("About Us");
+        aboutUsMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                aboutUsMenuActionPerformed(evt);
+            }
+        });
+        jMenu2.add(aboutUsMenu);
+
+        helpMenu.setText("Help Text");
+        helpMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                helpMenuActionPerformed(evt);
+            }
+        });
+        jMenu2.add(helpMenu);
+
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
@@ -645,6 +706,8 @@ public class AddPatientFrame extends javax.swing.JFrame {
 
     private void viewPatientButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewPatientButtonActionPerformed
         // TODO add your handling code here:
+        new ViewPatientFrame();
+        setVisible(false);
     }//GEN-LAST:event_viewPatientButtonActionPerformed
 
     private void helpTextButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_helpTextButtonActionPerformed
@@ -660,6 +723,8 @@ public class AddPatientFrame extends javax.swing.JFrame {
 
     private void viewDoctorsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewDoctorsButtonActionPerformed
         // TODO add your handling code here:
+        new ViewDoctorsFrame();
+        setVisible(false);
     }//GEN-LAST:event_viewDoctorsButtonActionPerformed
 
     private void severityComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_severityComboBoxActionPerformed
@@ -752,8 +817,43 @@ public class AddPatientFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_femaleRadioActionPerformed
 
+    private void openMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openMenuActionPerformed
+        // TODO add your handling code here:
+        JFileChooser chooser = new JFileChooser();
+        int r = chooser.showOpenDialog(openMenu);
+        if (r == JFileChooser.APPROVE_OPTION) {
+            try {
+                Desktop.getDesktop().open(chooser.getSelectedFile());
+            } catch (IOException e1) {
+                JOptionPane.showMessageDialog(openMenu, "Could not open file " + chooser.getSelectedFile().getAbsolutePath());
+            }
+        }
+    }//GEN-LAST:event_openMenuActionPerformed
+
+    private void aboutUsMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aboutUsMenuActionPerformed
+        // TODO add your handling code here:
+        new AboutUsFrame();
+        setVisible(false);
+    }//GEN-LAST:event_aboutUsMenuActionPerformed
+
+    private void exitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitButtonActionPerformed
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_exitButtonActionPerformed
+
+    private void saveMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveMenuActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_saveMenuActionPerformed
+
+    private void helpMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_helpMenuActionPerformed
+        // TODO add your handling code here:
+        config.DisplayHelpPDF(this);
+    }//GEN-LAST:event_helpMenuActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem aboutUsMenu;
     private javax.swing.JButton addDoctorButton;
     private javax.swing.JLabel addIcon;
     private javax.swing.JButton addPatientButton;
@@ -766,7 +866,9 @@ public class AddPatientFrame extends javax.swing.JFrame {
     private javax.swing.JButton contactButton;
     private javax.swing.JComboBox<String> doctorComboBox;
     private javax.swing.JLabel doctorNameLabel;
+    private javax.swing.JMenuItem exitButton;
     private javax.swing.JRadioButton femaleRadio;
+    private javax.swing.JMenuItem helpMenu;
     private javax.swing.JButton helpTextButton;
     private javax.swing.JButton homeButton;
     private javax.swing.JLabel jLabel1;
@@ -775,17 +877,21 @@ public class AddPatientFrame extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JRadioButton maleRadio;
     private javax.swing.JTextField nameField;
     private javax.swing.JLabel nameLabel;
     private javax.swing.JLabel nameLabel1;
+    private javax.swing.JMenuItem openMenu;
     private javax.swing.JTable patientTable;
+    private javax.swing.JMenuItem saveMenu;
     private javax.swing.JComboBox<String> severityComboBox;
     private javax.swing.JLabel severityLabel;
     private javax.swing.ButtonGroup sexButtonGroup;

@@ -2,10 +2,14 @@ package hms;
 
 import java.awt.Desktop;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.Timer;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -17,7 +21,7 @@ import javax.swing.JOptionPane;
  * @author Suson
  */
 public class MainFrame extends javax.swing.JFrame {
-
+    
     Configuration config;
 
     /**
@@ -29,7 +33,7 @@ public class MainFrame extends javax.swing.JFrame {
         initComponents();
         config.loadDefaultDoctors();
         config.loadDefaultPatient();
-
+        
     }
 
     /**
@@ -57,9 +61,7 @@ public class MainFrame extends javax.swing.JFrame {
         toText = new javax.swing.JLabel();
         HospitalText = new javax.swing.JLabel();
         welcomeText1 = new javax.swing.JLabel();
-        HospitalText1 = new javax.swing.JLabel();
         iconLabel = new javax.swing.JLabel();
-        HospitalText2 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -69,8 +71,8 @@ public class MainFrame extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         exitMenu = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
+        aboutUsMenu = new javax.swing.JMenuItem();
+        userGuideMenu = new javax.swing.JMenuItem();
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -314,61 +316,40 @@ public class MainFrame extends javax.swing.JFrame {
         welcomeText1.setForeground(new java.awt.Color(255, 255, 255));
         welcomeText1.setText("Welcome");
 
-        HospitalText1.setFont(new java.awt.Font("Segoe UI Black", 1, 48)); // NOI18N
-        HospitalText1.setForeground(new java.awt.Color(255, 255, 255));
-        HospitalText1.setText("Hospital");
-
-        iconLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/minsss.jpg"))); // NOI18N
-
-        HospitalText2.setFont(new java.awt.Font("Segoe UI Black", 1, 48)); // NOI18N
-        HospitalText2.setForeground(new java.awt.Color(255, 255, 255));
-        HospitalText2.setText("Management System ");
+        iconLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/transparent.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(367, 367, 367)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(iconLabel)
-                    .addComponent(welcomeText1)
-                    .addComponent(HospitalText1))
-                .addGap(0, 366, Short.MAX_VALUE))
-            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap(265, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(465, 465, 465)
-                        .addComponent(toText))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(410, 410, 410)
-                        .addComponent(HospitalText)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                    .addContainerGap(245, Short.MAX_VALUE)
-                    .addComponent(HospitalText2)
-                    .addGap(175, 175, 175)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                        .addComponent(HospitalText)
+                        .addGap(389, 389, 389))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                        .addComponent(iconLabel)
+                        .addGap(218, 218, 218))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                        .addComponent(toText)
+                        .addGap(426, 426, 426))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                        .addComponent(welcomeText1)
+                        .addGap(335, 335, 335))))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(59, 59, 59)
-                .addComponent(iconLabel)
-                .addGap(44, 44, 44)
+                .addGap(139, 139, 139)
                 .addComponent(welcomeText1)
-                .addGap(32, 32, 32)
+                .addGap(28, 28, 28)
                 .addComponent(toText)
                 .addGap(18, 18, 18)
-                .addComponent(HospitalText1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 374, Short.MAX_VALUE)
+                .addComponent(iconLabel)
+                .addGap(122, 122, 122)
                 .addComponent(HospitalText)
-                .addGap(86, 86, 86))
-            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                    .addContainerGap(640, Short.MAX_VALUE)
-                    .addComponent(HospitalText2)
-                    .addGap(374, 374, 374)))
+                .addContainerGap(237, Short.MAX_VALUE))
         );
 
         jPanel5.setBackground(new java.awt.Color(56, 28, 87));
@@ -424,11 +405,21 @@ public class MainFrame extends javax.swing.JFrame {
 
         jMenu2.setText("Help");
 
-        jMenuItem4.setText("About Us");
-        jMenu2.add(jMenuItem4);
+        aboutUsMenu.setText("About Us");
+        aboutUsMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                aboutUsMenuActionPerformed(evt);
+            }
+        });
+        jMenu2.add(aboutUsMenu);
 
-        jMenuItem5.setText("User Guide");
-        jMenu2.add(jMenuItem5);
+        userGuideMenu.setText("User Guide");
+        userGuideMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                userGuideMenuActionPerformed(evt);
+            }
+        });
+        jMenu2.add(userGuideMenu);
 
         jMenuBar1.add(jMenu2);
 
@@ -444,7 +435,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 584, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -518,6 +509,17 @@ public class MainFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_openMenuActionPerformed
 
+    private void aboutUsMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aboutUsMenuActionPerformed
+        // TODO add your handling code here:
+        new AboutUsFrame();
+        setVisible(false);
+    }//GEN-LAST:event_aboutUsMenuActionPerformed
+
+    private void userGuideMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userGuideMenuActionPerformed
+        // TODO add your handling code here:
+        config.DisplayHelpPDF(this);
+    }//GEN-LAST:event_userGuideMenuActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -545,19 +547,29 @@ public class MainFrame extends javax.swing.JFrame {
         }
         //</editor-fold>
         /* Create and display the form */
+        
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-
+                
                 new MainFrame().setVisible(true);
-
+                PopUpClass popup = new PopUpClass();
+                Timer timer = new Timer(600, new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        popup.setLocation(470, 300);
+                        popup.setVisible(true);
+                        
+                    }
+                });
+                timer.setRepeats(false);
+                timer.start();
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel HospitalText;
-    private javax.swing.JLabel HospitalText1;
-    private javax.swing.JLabel HospitalText2;
+    private javax.swing.JMenuItem aboutUsMenu;
     private javax.swing.JButton addDoctorButton;
     private javax.swing.JButton addPatientButton;
     private javax.swing.JButton contactButton;
@@ -571,8 +583,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -582,6 +592,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton manageButton;
     private javax.swing.JMenuItem openMenu;
     private javax.swing.JLabel toText;
+    private javax.swing.JMenuItem userGuideMenu;
     private javax.swing.JButton viewDoctorsButton;
     private javax.swing.JButton viewPatientButton;
     private javax.swing.JLabel welcomeText1;

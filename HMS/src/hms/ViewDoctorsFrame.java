@@ -1,9 +1,12 @@
 package hms;
 
 
+import java.awt.Desktop;
 import java.awt.Font;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 /*
@@ -72,7 +75,13 @@ public class ViewDoctorsFrame extends javax.swing.JFrame {
         statusLabel = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
+        openMenu = new javax.swing.JMenuItem();
+        saveMenu = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        exitMenu = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
+        aboutMenu = new javax.swing.JMenuItem();
+        helpTextMenu = new javax.swing.JMenuItem();
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -526,9 +535,58 @@ public class ViewDoctorsFrame extends javax.swing.JFrame {
         );
 
         jMenu1.setText("File");
+
+        openMenu.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
+        openMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Open.png"))); // NOI18N
+        openMenu.setText("Open");
+        openMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                openMenuActionPerformed(evt);
+            }
+        });
+        jMenu1.add(openMenu);
+
+        saveMenu.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
+        saveMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Save.png"))); // NOI18N
+        saveMenu.setText("Save");
+        saveMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveMenuActionPerformed(evt);
+            }
+        });
+        jMenu1.add(saveMenu);
+        jMenu1.add(jSeparator1);
+
+        exitMenu.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.ALT_MASK));
+        exitMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Exit resize.png"))); // NOI18N
+        exitMenu.setText("Exit");
+        exitMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exitMenuActionPerformed(evt);
+            }
+        });
+        jMenu1.add(exitMenu);
+
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Edit");
+
+        aboutMenu.setText("About Us");
+        aboutMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                aboutMenuActionPerformed(evt);
+            }
+        });
+        jMenu2.add(aboutMenu);
+
+        helpTextMenu.setText("Help Text");
+        helpTextMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                helpTextMenuActionPerformed(evt);
+            }
+        });
+        jMenu2.add(helpTextMenu);
+
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
@@ -791,14 +849,50 @@ public class ViewDoctorsFrame extends javax.swing.JFrame {
         config.addDoctorToTable(doctorsTable);
     }//GEN-LAST:event_sortSelectorItemStateChanged
 
+    private void helpTextMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_helpTextMenuActionPerformed
+        // TODO add your handling code here:
+        config.DisplayHelpPDF(this);
+    }//GEN-LAST:event_helpTextMenuActionPerformed
+
+    private void openMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openMenuActionPerformed
+        // TODO add your handling code here:
+         JFileChooser chooser = new JFileChooser();
+        int r = chooser.showOpenDialog(openMenu);
+        if (r == JFileChooser.APPROVE_OPTION) {
+            try {
+                Desktop.getDesktop().open(chooser.getSelectedFile());
+            } catch (IOException e1) {
+                JOptionPane.showMessageDialog(openMenu, "Could not open file " + chooser.getSelectedFile().getAbsolutePath());
+            }
+        }
+    }//GEN-LAST:event_openMenuActionPerformed
+
+    private void saveMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveMenuActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_saveMenuActionPerformed
+
+    private void exitMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitMenuActionPerformed
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_exitMenuActionPerformed
+
+    private void aboutMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aboutMenuActionPerformed
+        // TODO add your handling code here:
+        new AboutUsFrame();
+        setVisible(false);
+    }//GEN-LAST:event_aboutMenuActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem aboutMenu;
     private javax.swing.JButton addDoctorButton;
     private javax.swing.JButton addPatientButton;
     private javax.swing.JRadioButton addressRadio;
     private javax.swing.JButton contactButton;
     private javax.swing.JTable doctorsTable;
+    private javax.swing.JMenuItem exitMenu;
     private javax.swing.JButton helpTextButton;
+    private javax.swing.JMenuItem helpTextMenu;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
@@ -811,9 +905,12 @@ public class ViewDoctorsFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JButton manageButton;
     private javax.swing.JRadioButton nameRadio;
+    private javax.swing.JMenuItem openMenu;
     private javax.swing.JRadioButton salaryRadio;
+    private javax.swing.JMenuItem saveMenu;
     private javax.swing.JButton searchButton;
     private javax.swing.ButtonGroup searchButtonGroup;
     private javax.swing.JTextField searchField;

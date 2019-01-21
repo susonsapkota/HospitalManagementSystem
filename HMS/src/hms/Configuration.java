@@ -111,6 +111,9 @@ public class Configuration {
         });
         timer.setRepeats(false);
         timer.start();
+        
+       
+        
     }
     
     public void setIconAndTitle(JFrame frame, String title) {

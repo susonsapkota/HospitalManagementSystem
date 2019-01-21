@@ -73,15 +73,21 @@
             <Property name="text" type="java.lang.String" value="Help"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem4">
+            <MenuItem class="javax.swing.JMenuItem" name="aboutUsMenu">
               <Properties>
                 <Property name="text" type="java.lang.String" value="About Us"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="aboutUsMenuActionPerformed"/>
+              </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem5">
+            <MenuItem class="javax.swing.JMenuItem" name="userGuideMenu">
               <Properties>
                 <Property name="text" type="java.lang.String" value="User Guide"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="userGuideMenuActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -124,7 +130,7 @@
               <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
               <Component id="jPanel5" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="584" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -532,32 +538,24 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
-                  <EmptySpace min="-2" pref="367" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="iconLabel" min="-2" max="-2" attributes="0"/>
-                      <Component id="welcomeText1" min="-2" max="-2" attributes="0"/>
-                      <Component id="HospitalText1" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="0" pref="366" max="32767" attributes="0"/>
-              </Group>
-              <Group type="102" attributes="0">
+                  <EmptySpace pref="265" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="465" max="-2" attributes="0"/>
-                          <Component id="toText" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="410" max="-2" attributes="0"/>
+                      <Group type="102" alignment="1" attributes="0">
                           <Component id="HospitalText" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="389" max="-2" attributes="0"/>
                       </Group>
-                  </Group>
-                  <EmptySpace max="32767" attributes="0"/>
-              </Group>
-              <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace pref="245" max="32767" attributes="0"/>
-                      <Component id="HospitalText2" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="175" max="-2" attributes="0"/>
+                      <Group type="102" alignment="1" attributes="0">
+                          <Component id="iconLabel" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="218" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="1" attributes="0">
+                          <Component id="toText" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="426" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="1" attributes="0">
+                          <Component id="welcomeText1" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="335" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
               </Group>
           </Group>
@@ -565,24 +563,15 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="59" max="-2" attributes="0"/>
-                  <Component id="iconLabel" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="139" max="-2" attributes="0"/>
                   <Component id="welcomeText1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                   <Component id="toText" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="HospitalText1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="374" max="32767" attributes="0"/>
+                  <Component id="iconLabel" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="122" max="-2" attributes="0"/>
                   <Component id="HospitalText" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="86" max="-2" attributes="0"/>
-              </Group>
-              <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace pref="640" max="32767" attributes="0"/>
-                      <Component id="HospitalText2" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="374" max="-2" attributes="0"/>
-                  </Group>
+                  <EmptySpace pref="237" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -622,33 +611,11 @@
             <Property name="text" type="java.lang.String" value="Welcome"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="HospitalText1">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Segoe UI Black" size="48" style="1"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ff" green="ff" red="ff" type="rgb"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Hospital"/>
-          </Properties>
-        </Component>
         <Component class="javax.swing.JLabel" name="iconLabel">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/img/minsss.jpg"/>
+              <Image iconType="3" name="/img/transparent.png"/>
             </Property>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="HospitalText2">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Segoe UI Black" size="48" style="1"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ff" green="ff" red="ff" type="rgb"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Management System "/>
           </Properties>
         </Component>
       </SubComponents>
