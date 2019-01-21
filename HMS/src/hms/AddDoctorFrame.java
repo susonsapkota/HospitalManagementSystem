@@ -3,14 +3,9 @@ package hms;
 
 import java.awt.Desktop;
 import java.awt.Font;
-import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.util.ArrayList;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import javax.swing.Timer;
 import javax.swing.table.DefaultTableModel;
 
 /*
@@ -651,7 +646,7 @@ Configuration config;
 
     private void viewDoctorsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewDoctorsButtonActionPerformed
         // TODO add your handling code here:
-        new AddDoctorFrame();
+        new ViewDoctorsFrame();
         setVisible(false);
     }//GEN-LAST:event_viewDoctorsButtonActionPerformed
 
