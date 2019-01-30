@@ -1,6 +1,5 @@
 package hms;
 
-
 import java.awt.Desktop;
 import java.awt.Font;
 import java.io.IOException;
@@ -24,7 +23,7 @@ public class ViewDoctorsFrame extends javax.swing.JFrame {
     StopWatch time;
 
     /**
-     * Creates new form AddPatientFrames
+     * Creates new form view Doctor Frames
      */
     public ViewDoctorsFrame() {
         config = new Configuration();
@@ -616,12 +615,25 @@ public class ViewDoctorsFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    /**
+     * This method sorts and add the sorted array to the list
+     *
+     * @param selected the parameter with which search is taking place
+     */
     private void sortDoctor(String selected) {
 
         String[] allDetails = new String[Configuration.doctorList.size() * 4]; // just so we copy all the values into this array in order.
         String[] array = config.copyDocToTempList(Configuration.doctorList, selected);
-        StringSort sort = new StringSort(array);
-        String[] sorted = sort.getSortedArray();
+
+        String[] sorted;
+        if (selected.equals("Salary")) {
+            int[] updated = config.stringToIntArray(array);
+            IntegerSort sort = new IntegerSort(updated);
+            sorted = config.intToStringArray(sort.getSortedArray());
+        } else {
+            StringSort sort = new StringSort(array);
+            sorted = sort.getSortedArray();
+        }
 
         // copying all the details 
         int counter = 0;
@@ -660,13 +672,16 @@ public class ViewDoctorsFrame extends javax.swing.JFrame {
             }
 
         }
-        
-      
-
+// adding the sorted list back to the system
         Configuration.doctorList = (ArrayList<Doctor>) tempList.clone();
 
     }
 
+    /**
+     * This method searches the doctor in the system
+     *
+     * @param selected parameter according to which search will be performed
+     */
     private void searchDoctor(String selected) {
         time = new StopWatch();
         String keyword = searchField.getText();
@@ -704,7 +719,6 @@ public class ViewDoctorsFrame extends javax.swing.JFrame {
                 }//0    1       2       3       4   5       6       7   8      9    10      11
                 //[name,address,shift,salary,name,address,shift,salary,name,address,shift,salary,]
 
-                
                 if (selected.equals("Name")) {
                     time.stop();
                     JOptionPane.showMessageDialog(rootPane, "Doctor Name : " + allDetails[count]
@@ -736,12 +750,23 @@ public class ViewDoctorsFrame extends javax.swing.JFrame {
         }
 
     }
+
+    /**
+     * This method lunches new patient frame and hides the current frame.
+     *
+     * @param evt
+     */
     private void addPatientButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPatientButtonActionPerformed
         // TODO add your handling code here:
         new AddPatientFrame();
         setVisible(false);
     }//GEN-LAST:event_addPatientButtonActionPerformed
-
+    /**
+     * This method lunches main frame and close the current frame after few
+     * milli-seconds.
+     *
+     * @param evt
+     */
     private void manageButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageButtonActionPerformed
         // TODO add your handling code here:
         new MainFrame().setVisible(true);
@@ -749,25 +774,44 @@ public class ViewDoctorsFrame extends javax.swing.JFrame {
         config.closeFrameAfer(this);
     }//GEN-LAST:event_manageButtonActionPerformed
 
+    /**
+     * This method lunches new add doctor frame and hides the current frame.
+     *
+     * @param evt
+     */
     private void addDoctorButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addDoctorButtonActionPerformed
         // TODO add your handling code here:
         new AddDoctorFrame();
         setVisible(false);
     }//GEN-LAST:event_addDoctorButtonActionPerformed
-
+    /**
+     * This method lunches new view patient frame and hides the current frame.
+     *
+     * @param evt
+     */
     private void viewPatientButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewPatientButtonActionPerformed
         // TODO add your handling code here:
         new ViewPatientFrame();
         setVisible(false);
-       
-        
-    }//GEN-LAST:event_viewPatientButtonActionPerformed
 
+
+    }//GEN-LAST:event_viewPatientButtonActionPerformed
+    /**
+     * This frame lunches the help manual for the page within the frame.
+     *
+     * @param evt
+     */
     private void helpTextButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_helpTextButtonActionPerformed
         // TODO add your handling code here:
         config.DisplayHelpPDF(this);
     }//GEN-LAST:event_helpTextButtonActionPerformed
 
+    /**
+     * This button opens the about us frame and closes itself after few
+     * milliseconds
+     *
+     * @param evt
+     */
     private void contactButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contactButtonActionPerformed
         // TODO add your handling code here:
         new AboutUsFrame();
@@ -789,7 +833,11 @@ public class ViewDoctorsFrame extends javax.swing.JFrame {
     private void addressRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addressRadioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_addressRadioActionPerformed
-
+    /**
+     * Clears the field when mouse is clicked
+     *
+     * @param evt
+     */
     private void searchFieldMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchFieldMouseClicked
         // TODO add your handling code here:
         searchField.setText("");
@@ -799,6 +847,12 @@ public class ViewDoctorsFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_searchFieldActionPerformed
 
+    /**
+     * This method selects what is being searched and performs the search
+     * accordingly.
+     *
+     * @param evt
+     */
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
         // TODO add your handling code here:
         String selected = "";
@@ -831,7 +885,11 @@ public class ViewDoctorsFrame extends javax.swing.JFrame {
     private void shiftRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_shiftRadioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_shiftRadioActionPerformed
-
+    /**
+     * This events initializes the sort according to the data stored.
+     *
+     * @param evt
+     */
     private void sortSelectorItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_sortSelectorItemStateChanged
         // TODO add your handling code here:
         if (evt.getStateChange() == (java.awt.event.ItemEvent.DESELECTED)) { // checking if event is selected or deselected.
@@ -848,15 +906,24 @@ public class ViewDoctorsFrame extends javax.swing.JFrame {
 
         config.addDoctorToTable(doctorsTable);
     }//GEN-LAST:event_sortSelectorItemStateChanged
-
+    /**
+     * This menu item which launches the help PDF inside within the program
+     *
+     * @param evt
+     */
     private void helpTextMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_helpTextMenuActionPerformed
         // TODO add your handling code here:
         config.DisplayHelpPDF(this);
     }//GEN-LAST:event_helpTextMenuActionPerformed
 
+    /**
+     * this is a file chooser which opens the file chooser.
+     *
+     * @param evt
+     */
     private void openMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openMenuActionPerformed
         // TODO add your handling code here:
-         JFileChooser chooser = new JFileChooser();
+        JFileChooser chooser = new JFileChooser();
         int r = chooser.showOpenDialog(openMenu);
         if (r == JFileChooser.APPROVE_OPTION) {
             try {
@@ -870,12 +937,20 @@ public class ViewDoctorsFrame extends javax.swing.JFrame {
     private void saveMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveMenuActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_saveMenuActionPerformed
-
+    /**
+     * This is menu item which closes the frame
+     *
+     * @param evt
+     */
     private void exitMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitMenuActionPerformed
         // TODO add your handling code here:
         System.exit(0);
     }//GEN-LAST:event_exitMenuActionPerformed
-
+    /**
+     * This method lunches about us frame and hides the current frame.
+     *
+     * @param evt
+     */
     private void aboutMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aboutMenuActionPerformed
         // TODO add your handling code here:
         new AboutUsFrame();

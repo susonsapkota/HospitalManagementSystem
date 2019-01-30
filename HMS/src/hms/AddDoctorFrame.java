@@ -1,6 +1,5 @@
 package hms;
 
-
 import java.awt.Desktop;
 import java.awt.Font;
 import java.io.IOException;
@@ -18,9 +17,13 @@ import javax.swing.table.DefaultTableModel;
  * @author Suson
  */
 public class AddDoctorFrame extends javax.swing.JFrame {
-Configuration config;
+
+    Configuration config;
+
     /**
-     * Creates new form mainFrame
+     * This is a constructor which initializes all the component required for
+     * launching new add doctor frame.
+     *
      */
     public AddDoctorFrame() {
         config = new Configuration();
@@ -30,6 +33,10 @@ Configuration config;
         setVisible(true);
 
     }
+
+    /**
+     * This method add doctors to the table of the frame.
+     */
 
     public void addDoctors() {
 
@@ -609,14 +616,23 @@ Configuration config;
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * This method lunches new patient frame and hides the current frame.
+     *
+     * @param evt
+     */
     private void addPatientButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPatientButtonActionPerformed
         // TODO add your handling code here:
         new AddPatientFrame();
         config.closeFrameAfer(this);
 
     }//GEN-LAST:event_addPatientButtonActionPerformed
-
+    /**
+     * This method lunches main frame and close the current frame after few
+     * milli-seconds.
+     *
+     * @param evt
+     */
     private void homeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_homeButtonActionPerformed
         // TODO add your handling code here:
         new MainFrame().setVisible(true);
@@ -626,24 +642,41 @@ Configuration config;
     private void addDoctorButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addDoctorButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_addDoctorButtonActionPerformed
-
+    /**
+     * This method lunches new view patient frame and hides the current frame.
+     *
+     * @param evt
+     */
     private void viewPatientButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewPatientButtonActionPerformed
         // TODO add your handling code here:
         new ViewPatientFrame();
         setVisible(false);
     }//GEN-LAST:event_viewPatientButtonActionPerformed
-
+    /**
+     * This frame lunches the help manual for the page within the frame.
+     *
+     * @param evt
+     */
     private void helpTextButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_helpTextButtonActionPerformed
         // TODO add your handling code here:
         config.DisplayHelpPDF(this);
     }//GEN-LAST:event_helpTextButtonActionPerformed
-
+    /**
+     * This button opens the about us frame and closes itself after few
+     * milliseconds
+     *
+     * @param evt
+     */
     private void contactButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contactButtonActionPerformed
         // TODO add your handling code here:
         new AboutUsFrame();
         config.closeFrameAfer(this);
     }//GEN-LAST:event_contactButtonActionPerformed
-
+    /**
+     * This method lunches new doctor frame and hides the current frame.
+     *
+     * @param evt
+     */
     private void viewDoctorsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewDoctorsButtonActionPerformed
         // TODO add your handling code here:
         new ViewDoctorsFrame();
@@ -653,7 +686,11 @@ Configuration config;
     private void shiftComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_shiftComboBoxActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_shiftComboBoxActionPerformed
-
+    /**
+     * This methods clears all the fields to make space for new details
+     *
+     * @param evt
+     */
     private void clearButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearButtonActionPerformed
         // When clicked all fields should be clear
         // setting all fields text to "" or empty
@@ -662,23 +699,29 @@ Configuration config;
         salaryField.setText("");
         shiftComboBox.setSelectedIndex(0);
     }//GEN-LAST:event_clearButtonActionPerformed
-
+    /**
+     * This method adds doctor to the system and also performs validation before
+     * adding
+     *
+     * @param evt
+     */
     private void addDoctorToTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addDoctorToTableActionPerformed
         // implement adding doctor to table
         // this is for validation
-        if (!(nameField.getText().isEmpty() || addressField.getText().isEmpty()
-                || salaryField.getText().isEmpty() || shiftComboBox.getSelectedIndex() == 0)) {
+        if (!(nameField.getText().trim().isEmpty() || addressField.getText().trim().isEmpty()
+                || salaryField.getText().trim().isEmpty() || shiftComboBox.getSelectedIndex() == 0)) {
             int salary = 0;
             // if users inputs strings in salary, exceptional handling is done!
             try {
+                // if the feild text cannot be converted into number then raises exception
                 salary = Integer.parseInt(salaryField.getText());
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(rootPane, "Please enter the valid salary in numbers", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-
-            String name = "Dr. " + nameField.getText();
-            String address = addressField.getText();
+            // adding doctor in fornt and capitalizing the first letter of the word
+            String name = "Dr. " + config.capitalizeFirstLetter(nameField.getText());
+            String address = config.capitalizeFirstLetter(addressField.getText());
             String shift = (String) shiftComboBox.getSelectedItem();
 
             // checking if that doctor is already added and is on table 
@@ -688,21 +731,24 @@ Configuration config;
                     return;
                 }
             }
-
+            // adding the doctor to the list
             Configuration.doctorList.add(new Doctor(name, address, shift, salary));
 
             DefaultTableModel model = (DefaultTableModel) doctorsTable.getModel();
             model.addRow(new Object[]{});
             int myRow = model.getRowCount() - 1;
-
+            // adding the doctor to the table
             doctorsTable.setValueAt(name, myRow, 0);
             doctorsTable.setValueAt(address, myRow, 1);
             doctorsTable.setValueAt(shift, myRow, 2);
             doctorsTable.setValueAt(salary, myRow, 3);
+            
+           
 
         } else {
-            if (nameField.getText().isEmpty() || addressField.getText().isEmpty()
-                    || salaryField.getText().isEmpty()) {
+            // exceptional handling by using JOptionPange
+            if (nameField.getText().trim().isEmpty() || addressField.getText().trim().isEmpty()
+                    || salaryField.getText().trim().isEmpty()) {
                 JOptionPane.showMessageDialog(rootPane, "Please enter all valid information", "Error", JOptionPane.ERROR_MESSAGE);
             } else if (shiftComboBox.getSelectedIndex() == 0) {
                 JOptionPane.showMessageDialog(rootPane, "Please select the shift of doctor", "Error", JOptionPane.ERROR_MESSAGE);
@@ -714,31 +760,47 @@ Configuration config;
     private void saveMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveMenuActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_saveMenuActionPerformed
-
+    /**
+     * this is a file chooser which opens the file chooser.
+     *
+     * @param evt
+     */
     private void openMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openMenuActionPerformed
         // TODO add your handling code here:
-          JFileChooser chooser = new JFileChooser();
-        int r = chooser.showOpenDialog(openMenu);
-        if (r == JFileChooser.APPROVE_OPTION) {
+        JFileChooser chooser = new JFileChooser();
+        int result = chooser.showOpenDialog(openMenu);
+        if (result == JFileChooser.APPROVE_OPTION) {
             try {
                 Desktop.getDesktop().open(chooser.getSelectedFile());
-            } catch (IOException e1) {
-                JOptionPane.showMessageDialog(openMenu, "Could not open file " + chooser.getSelectedFile().getAbsolutePath());
+            } catch (IOException e) {
+                JOptionPane.showMessageDialog(openMenu, "File cannot be open " + chooser.getSelectedFile().getAbsolutePath());
             }
         }
     }//GEN-LAST:event_openMenuActionPerformed
-
+    /**
+     * This is menu item which closes the frame
+     *
+     * @param evt
+     */
     private void exitMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitMenuActionPerformed
         // TODO add your handling code here:
         System.exit(0);
     }//GEN-LAST:event_exitMenuActionPerformed
-
+    /**
+     * This method lunches about us frame and hides the current frame.
+     *
+     * @param evt
+     */
     private void aboutUsMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aboutUsMenuActionPerformed
         // TODO add your handling code here:
         new AboutUsFrame();
         setVisible(false);
     }//GEN-LAST:event_aboutUsMenuActionPerformed
-
+    /**
+     * This menu item which launches the help PDF inside within the program
+     *
+     * @param evt
+     */
     private void helpMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_helpMenuActionPerformed
         // TODO add your handling code here:
         config.DisplayHelpPDF(this);

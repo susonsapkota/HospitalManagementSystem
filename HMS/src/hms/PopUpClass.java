@@ -12,7 +12,7 @@ package hms;
 public class PopUpClass extends javax.swing.JFrame {
 
     /**
-     * Creates new form PopUpClass
+     * Initializes the popup class and its components
      */
     public PopUpClass() {
         initComponents();
@@ -27,18 +27,18 @@ public class PopUpClass extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel2 = new javax.swing.JLabel();
+        popUp = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(242, 242, 242));
         setUndecorated(true);
         setResizable(false);
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/info.png"))); // NOI18N
-        jLabel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, null, java.awt.Color.lightGray, java.awt.Color.darkGray, null));
-        jLabel2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+        popUp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/info.png"))); // NOI18N
+        popUp.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, null, java.awt.Color.lightGray, java.awt.Color.darkGray, null));
+        popUp.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        popUp.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel2MouseClicked(evt);
+                popUpMouseClicked(evt);
             }
         });
 
@@ -47,24 +47,28 @@ public class PopUpClass extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel2)
+                .addComponent(popUp)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel2)
+            .addComponent(popUp)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
+/**
+     * This method closes the frame when clicked to the frame
+     *
+     * @param evt
+     */
+    private void popUpMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_popUpMouseClicked
         // TODO add your handling code here:
         dispose();
-    }//GEN-LAST:event_jLabel2MouseClicked
+    }//GEN-LAST:event_popUpMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel popUp;
     // End of variables declaration//GEN-END:variables
 }

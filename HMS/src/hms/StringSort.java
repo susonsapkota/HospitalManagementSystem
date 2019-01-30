@@ -1,6 +1,5 @@
 package hms;
 
-
 import java.util.Arrays;
 
 /*
@@ -13,71 +12,95 @@ import java.util.Arrays;
  * @author Suson
  */
 public class StringSort {
+// instance variable
 
     private String[] myArray;
     private String[] sorted;
 
+    /**
+     * Constructor of string sort class
+     *
+     * @param stringArray
+     */
     public StringSort(String[] stringArray) {
         this.myArray = stringArray;
         mergeSort(myArray);
     }
 
+    /**
+     * This method performs recursively divides the array into smaller chunks
+     *
+     * @param myArray to be sorted
+     * @return array being sort
+     */
     private String[] mergeSort(String[] myArray) {
         sorted = new String[myArray.length];
         if (myArray.length == 1) {
             sorted = myArray;
         } else {
             int mid = myArray.length / 2;
-            String[] left = null;
-            String[] right = null;
+            String[] leftArray = null;
+            String[] rightArray = null;
             if ((myArray.length % 2) == 0) {
-                left = new String[myArray.length / 2];
-                right = new String[myArray.length / 2];
+                leftArray = new String[myArray.length / 2];
+                rightArray = new String[myArray.length / 2];
             } else {
-                left = new String[myArray.length / 2];
-                right = new String[(myArray.length / 2) + 1];
+                leftArray = new String[myArray.length / 2];
+                rightArray = new String[(myArray.length / 2) + 1];
             }
-            int x = 0;
-            int y = 0;
-            for (; x < mid; x++) {
-                left[x] = myArray[x];
+            int counterOne = 0;
+
+            for (; counterOne < mid; counterOne++) {
+                leftArray[counterOne] = myArray[counterOne];
             }
-            for (; x < myArray.length; x++) {
-                right[y++] = myArray[x];
+            for (int counterTwo = 0; counterOne < myArray.length; counterOne++) {
+                rightArray[counterTwo++] = myArray[counterOne];
             }
-            left = mergeSort(left);
-            right = mergeSort(right);
-            sorted = mergeArray(left, right);
+            leftArray = mergeSort(leftArray);
+            rightArray = mergeSort(rightArray);
+            sorted = mergeArray(leftArray, rightArray);
         }
 
         return sorted;
     }
 
-    private String[] mergeArray(String[] left, String[] right) {
-        String[] merged = new String[left.length + right.length];
-        int lIndex = 0;
-        int rIndex = 0;
-        int mIndex = 0;
-        int comp = 0;
-        while (lIndex < left.length || rIndex < right.length) {
-            if (lIndex == left.length) {
-                merged[mIndex++] = right[rIndex++];
-            } else if (rIndex == right.length) {
-                merged[mIndex++] = left[lIndex++];
+    /**
+     * This method compares the and swaps the from the smaller chunks
+     *
+     * @param leftArray lower most index of the array
+     * @param rightArray higher index of the array
+     * @return the sorted array
+     */
+    private String[] mergeArray(String[] leftArray, String[] rightArray) {
+        String[] mergedArray = new String[leftArray.length + rightArray.length];
+        int leftIndex = 0;
+        int rightIndex = 0;
+        int midIndex = 0;
+        int comparator = 0;
+        while (leftIndex < leftArray.length || rightIndex < rightArray.length) {
+            if (leftIndex == leftArray.length) {
+                mergedArray[midIndex++] = rightArray[rightIndex++];
+            } else if (rightIndex == rightArray.length) {
+                mergedArray[midIndex++] = leftArray[leftIndex++];
             } else {
-                comp = left[lIndex].compareTo(right[rIndex]);
-                if (comp > 0) {
-                    merged[mIndex++] = right[rIndex++];
-                } else if (comp < 0) {
-                    merged[mIndex++] = left[lIndex++];
+                comparator = leftArray[leftIndex].compareTo(rightArray[rightIndex]);
+                if (comparator > 0) {
+                    mergedArray[midIndex++] = rightArray[rightIndex++];
+                } else if (comparator < 0) {
+                    mergedArray[midIndex++] = leftArray[leftIndex++];
                 } else {
-                    merged[mIndex++] = left[lIndex++];
+                    mergedArray[midIndex++] = leftArray[leftIndex++];
                 }
             }
         }
-        return merged;
+        return mergedArray;
     }
 
+    /**
+     * This method returns the sorted array
+     *
+     * @return sorted array
+     */
     public String[] getSortedArray() {
         return sorted;
     }

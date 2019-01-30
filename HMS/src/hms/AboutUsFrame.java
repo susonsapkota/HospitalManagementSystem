@@ -5,8 +5,6 @@ import java.io.IOException;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
-
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -19,7 +17,9 @@ import javax.swing.JOptionPane;
 public class AboutUsFrame extends javax.swing.JFrame {
 
     /**
-     * Creates new form mainFrame
+     * This is a constructor which initializes all the component required for
+     * launching new about us frame.
+     *
      */
     public AboutUsFrame() {
         Configuration config = new Configuration();
@@ -27,7 +27,6 @@ public class AboutUsFrame extends javax.swing.JFrame {
         initComponents();
         setVisible(true);
     }
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -481,13 +480,23 @@ public class AboutUsFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * This method lunches new patient frame and hides the current frame.
+     *
+     * @param evt
+     */
     private void addPatientButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPatientButtonActionPerformed
         // TODO add your handling code here:
         new AddPatientFrame();
         setVisible(false);
 
     }//GEN-LAST:event_addPatientButtonActionPerformed
-
+    /**
+     * This method lunches main frame and close the current frame after few
+     * milli-seconds.
+     *
+     * @param evt
+     */
     private void homeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_homeButtonActionPerformed
         // TODO add your handling code here:
         Configuration config = new Configuration();
@@ -495,19 +504,31 @@ public class AboutUsFrame extends javax.swing.JFrame {
         config.closeFrameAfer(this);
 
     }//GEN-LAST:event_homeButtonActionPerformed
-
+    /**
+     * This method lunches new add doctor frame and hides the current frame.
+     *
+     * @param evt
+     */
     private void addDoctorButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addDoctorButtonActionPerformed
         // TODO add your handling code here:
         new AddDoctorFrame();
         setVisible(false);
     }//GEN-LAST:event_addDoctorButtonActionPerformed
-
+    /**
+     * This method lunches new view patient frame and hides the current frame.
+     *
+     * @param evt
+     */
     private void viewPatientButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewPatientButtonActionPerformed
         // TODO add your handling code here:
         new ViewPatientFrame();
         setVisible(false);
     }//GEN-LAST:event_viewPatientButtonActionPerformed
-
+    /**
+     * This frame lunches the help manual for the page within the frame.
+     *
+     * @param evt
+     */
     private void helpTextButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_helpTextButtonActionPerformed
         // TODO add your handling code here:
         Configuration config = new Configuration();
@@ -517,7 +538,11 @@ public class AboutUsFrame extends javax.swing.JFrame {
     private void contactButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contactButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_contactButtonActionPerformed
-
+    /**
+     * This method lunches new doctor frame and hides the current frame.
+     *
+     * @param evt
+     */
     private void viewDoctorsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewDoctorsButtonActionPerformed
         // TODO add your handling code here:
         new ViewDoctorsFrame();
@@ -527,10 +552,14 @@ public class AboutUsFrame extends javax.swing.JFrame {
     private void saveMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveMenuActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_saveMenuActionPerformed
-
+    /**
+     * this is a file chooser which opens the file chooser.
+     *
+     * @param evt
+     */
     private void openMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openMenuActionPerformed
         // TODO add your handling code here:
-         JFileChooser chooser = new JFileChooser();
+        JFileChooser chooser = new JFileChooser();
         int r = chooser.showOpenDialog(openMenu);
         if (r == JFileChooser.APPROVE_OPTION) {
             try {
@@ -539,20 +568,32 @@ public class AboutUsFrame extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(openMenu, "Could not open file " + chooser.getSelectedFile().getAbsolutePath());
             }
         }
-       
-    }//GEN-LAST:event_openMenuActionPerformed
 
+    }//GEN-LAST:event_openMenuActionPerformed
+    /**
+     * This is menu item which closes the frame
+     *
+     * @param evt
+     */
     private void exitMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitMenuActionPerformed
         // TODO add your handling code here:
         System.exit(0);
     }//GEN-LAST:event_exitMenuActionPerformed
-
+    /**
+     * This method lunches about us frame and hides the current frame.
+     *
+     * @param evt
+     */
     private void aboutMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aboutMenuActionPerformed
         // TODO add your handling code here:
         new AboutUsFrame();
         setVisible(false);
     }//GEN-LAST:event_aboutMenuActionPerformed
-
+    /**
+     * This menu item which launches the help PDF inside within the program
+     *
+     * @param evt
+     */
     private void helpMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_helpMenuActionPerformed
         // TODO add your handling code here:
         Configuration config = new Configuration();
