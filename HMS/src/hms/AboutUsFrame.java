@@ -53,12 +53,9 @@ public class AboutUsFrame extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         susonImage = new javax.swing.JLabel();
         prabinImage = new javax.swing.JLabel();
-        pratikImage = new javax.swing.JLabel();
         susonLabel = new javax.swing.JLabel();
-        pratikLabel = new javax.swing.JLabel();
         prabinLabel = new javax.swing.JLabel();
         meetTeamLabel = new javax.swing.JLabel();
-        pratikHandle = new javax.swing.JLabel();
         prabinHandle = new javax.swing.JLabel();
         susonHandle = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -300,39 +297,27 @@ public class AboutUsFrame extends javax.swing.JFrame {
 
         susonImage.setBackground(new java.awt.Color(51, 255, 0));
         susonImage.setForeground(new java.awt.Color(153, 255, 153));
-        susonImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/sus.png"))); // NOI18N
+        susonImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/img2.png"))); // NOI18N
 
         prabinImage.setBackground(new java.awt.Color(51, 255, 0));
         prabinImage.setForeground(new java.awt.Color(153, 255, 153));
-        prabinImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/prabin.png"))); // NOI18N
-
-        pratikImage.setBackground(new java.awt.Color(51, 255, 0));
-        pratikImage.setForeground(new java.awt.Color(153, 255, 153));
-        pratikImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/pratik.png"))); // NOI18N
+        prabinImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/img.png"))); // NOI18N
 
         susonLabel.setFont(new java.awt.Font("Gadugi", 1, 36)); // NOI18N
         susonLabel.setForeground(new java.awt.Color(255, 255, 255));
         susonLabel.setText("Suson Sapkota");
 
-        pratikLabel.setFont(new java.awt.Font("Gadugi", 1, 36)); // NOI18N
-        pratikLabel.setForeground(new java.awt.Color(255, 255, 255));
-        pratikLabel.setText("Pratik Karki");
-
         prabinLabel.setFont(new java.awt.Font("Gadugi", 1, 36)); // NOI18N
         prabinLabel.setForeground(new java.awt.Color(255, 255, 255));
-        prabinLabel.setText("Prabin Thapaliya");
+        prabinLabel.setText("Shakshi Lamsal");
 
         meetTeamLabel.setFont(new java.awt.Font("Gadugi", 1, 36)); // NOI18N
         meetTeamLabel.setForeground(new java.awt.Color(255, 255, 255));
         meetTeamLabel.setText("Meet The Team");
 
-        pratikHandle.setFont(new java.awt.Font("Gadugi", 1, 18)); // NOI18N
-        pratikHandle.setForeground(new java.awt.Color(255, 255, 255));
-        pratikHandle.setText("@pratik_noob");
-
         prabinHandle.setFont(new java.awt.Font("Gadugi", 1, 18)); // NOI18N
         prabinHandle.setForeground(new java.awt.Color(255, 255, 255));
-        prabinHandle.setText("@pthapaliya10");
+        prabinHandle.setText("@red_kattu");
 
         susonHandle.setFont(new java.awt.Font("Gadugi", 1, 18)); // NOI18N
         susonHandle.setForeground(new java.awt.Color(255, 255, 255));
@@ -342,38 +327,33 @@ public class AboutUsFrame extends javax.swing.JFrame {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(meetTeamLabel)
-                .addGap(603, 603, 603))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addGap(171, 171, 171)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pratikImage)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addComponent(pratikLabel)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 220, Short.MAX_VALUE)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(susonImage)
-                    .addComponent(susonLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(185, 185, 185)
-                        .addComponent(prabinImage)
-                        .addGap(173, 173, 173))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(prabinLabel)
-                        .addGap(159, 159, 159))))
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(238, 238, 238)
-                .addComponent(pratikHandle, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                        .addComponent(meetTeamLabel)
+                        .addGap(603, 603, 603))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(susonImage)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
+                                .addGap(129, 129, 129)
+                                .addComponent(susonLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addGap(185, 185, 185)
+                                .addComponent(prabinImage)
+                                .addGap(173, 173, 173))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(prabinLabel)
+                                .addGap(293, 293, 293))))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addGap(407, 407, 407)
                 .addComponent(susonHandle)
-                .addGap(348, 348, 348)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(prabinHandle)
-                .addGap(234, 234, 234))
+                .addGap(366, 366, 366))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -381,26 +361,21 @@ public class AboutUsFrame extends javax.swing.JFrame {
                 .addGap(92, 92, 92)
                 .addComponent(meetTeamLabel)
                 .addGap(76, 76, 76)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(jPanel4Layout.createSequentialGroup()
-                            .addComponent(prabinImage)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(prabinLabel))
-                        .addGroup(jPanel4Layout.createSequentialGroup()
-                            .addComponent(susonImage)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(susonLabel)))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(pratikImage)
+                        .addComponent(susonImage)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(pratikLabel)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pratikHandle, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(prabinHandle, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(susonHandle, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(432, Short.MAX_VALUE))
+                        .addComponent(susonLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(susonHandle, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(26, Short.MAX_VALUE))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(prabinImage, javax.swing.GroupLayout.PREFERRED_SIZE, 512, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(prabinLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(prabinHandle, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
 
         jMenu1.setText("File");
@@ -475,7 +450,7 @@ public class AboutUsFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 173, Short.MAX_VALUE))
         );
 
         pack();
@@ -584,9 +559,6 @@ public class AboutUsFrame extends javax.swing.JFrame {
     private javax.swing.JLabel prabinHandle;
     private javax.swing.JLabel prabinImage;
     private javax.swing.JLabel prabinLabel;
-    private javax.swing.JLabel pratikHandle;
-    private javax.swing.JLabel pratikImage;
-    private javax.swing.JLabel pratikLabel;
     private javax.swing.JMenuItem saveMenu;
     private javax.swing.JLabel susonHandle;
     private javax.swing.JLabel susonImage;

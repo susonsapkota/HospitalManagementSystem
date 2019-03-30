@@ -5,8 +5,6 @@ package hms;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
-
 /**
  *
  * @author Suson
@@ -25,7 +23,7 @@ public class StopWatch {
     }
 
     public long timeElapsed() {
-//        System.out.println("Time Elapsed: " + (stop - start) +" ms."); // can also divide by 1000 to get this into seconds :D
+        // can also divide by 1000 to get this into seconds :D
         return stop - start;
     }
 

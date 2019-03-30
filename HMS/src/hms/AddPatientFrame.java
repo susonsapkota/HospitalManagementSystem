@@ -757,6 +757,9 @@ public class AddPatientFrame extends javax.swing.JFrame {
             // if users inputs strings in salary, exceptional handling is done!
             try {
                 age = Integer.parseInt(ageField.getText());
+                if (age < 0){
+                    throw new NumberFormatException("Negative Number") ;
+                }
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(rootPane, "Please enter the valid age in numbers", "Error", JOptionPane.ERROR_MESSAGE);
                 return;

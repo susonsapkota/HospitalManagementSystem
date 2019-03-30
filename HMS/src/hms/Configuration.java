@@ -13,6 +13,7 @@ import javax.swing.Timer;
 import javax.swing.table.DefaultTableModel;
 import org.icepdf.ri.common.SwingController;
 import org.icepdf.ri.common.SwingViewBuilder;
+import org.icepdf.ri.common.views.DocumentViewControllerImpl;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -24,14 +25,15 @@ import org.icepdf.ri.common.SwingViewBuilder;
  * @author Suson
  */
 public class Configuration {
-    
+
     public static ArrayList<Doctor> doctorList = new ArrayList<>();
     public static ArrayList<Patient> patientList = new ArrayList<>();
-    
+
     public Configuration() {
     }
-    
+
     public Doctor findDoctorByName(String name) {
+        // finds all the doctors by names as passed by parameter
         for (Doctor doctors : Configuration.doctorList) {
             if (doctors.getName().equals(name)) {
                 return doctors;
@@ -39,7 +41,6 @@ public class Configuration {
         }
         return null;
     }
-    // model class and data listner 
 
     public void loadDefaultDoctors() {
         if (Configuration.doctorList.isEmpty()) {
@@ -53,7 +54,7 @@ public class Configuration {
             Configuration.doctorList.add(new Doctor("Dr. Who", "Kamal Pokhari", "Morning", 25000));
         }
     }
-    
+
     public void loadDefaultPatient() {
         if (Configuration.patientList.isEmpty()) {
             Configuration.patientList.add(new Patient("Jim Halpert", 39, "Male", "Bhaktapur", "Low", findDoctorByName("Dr. Sheldon Cooper")));
@@ -63,12 +64,12 @@ public class Configuration {
             Configuration.patientList.add(new Patient("Angela Kinsey", 47, "Female", "Bhaktapur", "Low", findDoctorByName("Dr. Rajesh Koothrappali")));
             Configuration.patientList.add(new Patient("Mindy Kaling", 39, "Female", "Pulchok", "High", findDoctorByName("Dr. Sheldon Cooper")));
             Configuration.patientList.add(new Patient("Ed Helms", 44, "Male", "Lalitpur", "Medium", findDoctorByName("Dr. Steven Strange")));
-            
+
         }
     }
-    
+
     public void addPatientToTable(JTable table) {
-        
+
         DefaultTableModel model = (DefaultTableModel) table.getModel();
         model.setRowCount(0);
         for (Patient patient : Configuration.patientList) {
@@ -80,13 +81,13 @@ public class Configuration {
             table.setValueAt(patient.getAddress(), myRow, 3);
             table.setValueAt(patient.getSeverity(), myRow, 4);
             table.setValueAt(patient.getDoctor().getName(), myRow, 5);
-            
+
         }
-        
+
     }
-    
+
     public void addDoctorToTable(JTable table) {
-        
+
         DefaultTableModel model = (DefaultTableModel) table.getModel();
         model.setRowCount(0);
         for (Doctor doctor : Configuration.doctorList) {
@@ -96,10 +97,10 @@ public class Configuration {
             table.setValueAt(doctor.getAddress(), myRow, 1);
             table.setValueAt(doctor.getShift(), myRow, 2);
             table.setValueAt(doctor.getSalary(), myRow, 3);
-            
+
         }
     }
-    
+
     public void closeFrameAfer(JFrame frame) {
         // this is for making so that this frame would close after half a second(500 ms) before main frame would close
         // simple fix that would flicker the screen while changing the tab.
@@ -111,23 +112,21 @@ public class Configuration {
         });
         timer.setRepeats(false);
         timer.start();
-        
-       
-        
+
     }
-    
+
     public void setIconAndTitle(JFrame frame, String title) {
         frame.setTitle("Hospital Management System - " + title); // setting the title of the frame
         frame.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../img/favicon.png"))); // setting the icon image
     }
-    
+
     public void selectDoctorForPatient(JComboBox box) {
         for (Doctor doctor : Configuration.doctorList) {
             box.addItem(doctor.getName());
         }
-        
+
     }
-    
+
     public void displayDoctor(JFrame frame, Doctor doc) {
         JOptionPane.showMessageDialog(frame, "Doctor Name : " + doc.getName()
                 + "\nAddress : " + doc.getAddress()
@@ -135,7 +134,7 @@ public class Configuration {
                 + "\nSalary : " + doc.getSalary(),
                 doc.getName(), JOptionPane.INFORMATION_MESSAGE);
     }
-    
+
     public String[] copyDocToTempList(ArrayList<Doctor> doc, String keyword) {
         String[] tempList = new String[doc.size()];
         int i = 0;
@@ -166,7 +165,7 @@ public class Configuration {
         }
         return tempList;
     }
-    
+
     public String[] copyPatientToTempList(ArrayList<Patient> patient, String keyword) {
         String[] tempList = new String[patient.size()];
         int i = 0;
@@ -207,77 +206,40 @@ public class Configuration {
             }
             return tempList;
         }
-        
+
         return tempList;
     }
-    
-    public ArrayList<Doctor> searchingAccordingToKeyword(String[] sorted, String keyword) {
-        
-        ArrayList<Doctor> tempDoc = new ArrayList<>();
-        
-        for (String name : sorted) {
-            
-            if (keyword.equals("Name")) {
-                for (Doctor doc : Configuration.doctorList) {
-                    if (doc.getName().equals(name) && !(tempDoc.contains(doc))) {
-                        tempDoc.add(doc);
-                    }
-                }
-                return tempDoc;
-            } else if (keyword.equals("Address")) {
-                for (Doctor doc : Configuration.doctorList) {
-                    if (doc.getAddress().equals(name) && !(tempDoc.contains(doc))) {
-                        tempDoc.add(doc);
-                    }
-                }
-            } else if (keyword.equals("Shift")) {
-                for (Doctor doc : Configuration.doctorList) {
-                    if (doc.getShift().equals(name) && !(tempDoc.contains(doc))) {
-                        tempDoc.add(doc);
-                    }
-                }
-            } else if (keyword.equals("Salary")) {
-                for (Doctor doc : Configuration.doctorList) {
-                    if (doc.getSalary() == Integer.parseInt(name) && !(tempDoc.contains(doc))) {
-                        tempDoc.add(doc);
-                    }
-                }
-            }
-            
-        }
-        return tempDoc;
-    }
-    
+
     public int moreOnDoctorList(String keyword, String searched) {
         int count = 0;
-        
+
         if (searched.equals("Name")) {
             for (Doctor doc : Configuration.doctorList) {
                 if (doc.getName().equals(keyword)) {
                     count++;
                 }
             }
-            
+
         } else if (searched.equals("Address")) {
             for (Doctor doc : Configuration.doctorList) {
                 if (doc.getAddress().equals(keyword)) {
                     count++;
                 }
-                
+
             }
         } else if (searched.equals("Shift")) {
             for (Doctor doc : Configuration.doctorList) {
                 if (doc.getShift().equals(keyword)) {
                     count++;
                 }
-                
+
             }
         } else if (searched.equals("Salary")) {
             for (Doctor doc : Configuration.doctorList) {
                 if (doc.getSalary() == Integer.parseInt(keyword)) {
                     count++;
                 }
-                
+
             }
         }
         if (count > 0) {
@@ -285,53 +247,53 @@ public class Configuration {
         } else {
             return 0;
         }
-        
+
     }
-    
+
     public int moreOnPatientList(String keyword, String searched) {
         int count = 0;
-        
+
         if (searched.equals("Name")) {
             for (Patient pat : Configuration.patientList) {
                 if (pat.getName().equals(keyword)) {
                     count++;
                 }
             }
-            
+
         } else if (searched.equals("Sex")) {
             for (Patient pat : Configuration.patientList) {
                 if (pat.getSex().equals(keyword)) {
                     count++;
                 }
-                
+
             }
         } else if (searched.equals("Address")) {
             for (Patient pat : Configuration.patientList) {
                 if (pat.getAddress().equals(keyword)) {
                     count++;
                 }
-                
+
             }
         } else if (searched.equals("Age")) {
             for (Patient pat : Configuration.patientList) {
                 if (pat.getAge() == Integer.parseInt(keyword)) {
                     count++;
                 }
-                
+
             }
         } else if (searched.equals("Severity")) {
             for (Patient pat : Configuration.patientList) {
                 if (pat.getSeverity().equals(keyword)) {
                     count++;
                 }
-                
+
             }
         } else if (searched.equals("Doctor")) {
             for (Patient pat : Configuration.patientList) {
                 if (pat.getDoctor().getName().equals(keyword)) {
                     count++;
                 }
-                
+
             }
         }
         if (count > 0) {
@@ -339,35 +301,58 @@ public class Configuration {
         } else {
             return 0;
         }
-        
+
     }
-    
+
     public void DisplayHelpPDF(JFrame frame) {
-        
+
         String filePath = "src/resource/test.pdf";
         // build a controller
         SwingController controller = new SwingController();
         SwingViewBuilder factory = new SwingViewBuilder(controller);
-        
+
         JPanel viewerComponentPanel = factory.buildViewerPanel();
-        
+
         controller.getDocumentViewController().setAnnotationCallback(
                 new org.icepdf.ri.common.MyAnnotationCallback(
                         controller.getDocumentViewController()));
-        
+
         JFrame viewPdf = new JFrame();
         setIconAndTitle(viewPdf, "HELP GUIDE");
-        viewPdf.setLocationRelativeTo(frame);
+
         viewPdf.setLocation(500, 75);
         viewPdf.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         //viewPdf.getContentPane().add(viewerComponentPanel);
         viewPdf.add(viewerComponentPanel);
-        
+
         controller.openDocument(filePath);
-        
+
         viewPdf.pack();
         viewPdf.setVisible(true);
-        
+
     }
-    
+
+    public int[] stringToIntArray(String[] strArray) {
+
+        int[] intArray = new int[strArray.length];
+        int i = 0;
+        for (String str : strArray) {
+            intArray[i] = Integer.valueOf(str);
+            i++;
+        }
+        return intArray;
+
+    }
+
+    public String[] intToStringArray(int[] intArray) {
+
+        String[] strArray = new String[intArray.length];
+        int i = 0;
+        for (Integer num : intArray) {
+            strArray[i] = Integer.toString(num);
+            i++;
+        }
+        return strArray;
+
+    }
 }

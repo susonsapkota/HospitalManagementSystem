@@ -1,6 +1,5 @@
 package hms;
 
-
 import java.awt.Desktop;
 import java.awt.Font;
 import java.io.IOException;
@@ -620,8 +619,18 @@ public class ViewDoctorsFrame extends javax.swing.JFrame {
 
         String[] allDetails = new String[Configuration.doctorList.size() * 4]; // just so we copy all the values into this array in order.
         String[] array = config.copyDocToTempList(Configuration.doctorList, selected);
-        StringSort sort = new StringSort(array);
-        String[] sorted = sort.getSortedArray();
+
+        String[] sorted;
+        if (selected.equals("Salary")) {
+            int[] updated = config.stringToIntArray(array);
+            IntegerSort sort = new IntegerSort(updated);
+            sorted = config.intToStringArray(sort.getSortedArray());
+        } else {
+            StringSort sort = new StringSort(array);
+            sorted = sort.getSortedArray();
+        }
+
+      
 
         // copying all the details 
         int counter = 0;
@@ -660,8 +669,6 @@ public class ViewDoctorsFrame extends javax.swing.JFrame {
             }
 
         }
-        
-      
 
         Configuration.doctorList = (ArrayList<Doctor>) tempList.clone();
 
@@ -704,7 +711,6 @@ public class ViewDoctorsFrame extends javax.swing.JFrame {
                 }//0    1       2       3       4   5       6       7   8      9    10      11
                 //[name,address,shift,salary,name,address,shift,salary,name,address,shift,salary,]
 
-                
                 if (selected.equals("Name")) {
                     time.stop();
                     JOptionPane.showMessageDialog(rootPane, "Doctor Name : " + allDetails[count]
@@ -759,8 +765,8 @@ public class ViewDoctorsFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         new ViewPatientFrame();
         setVisible(false);
-       
-        
+
+
     }//GEN-LAST:event_viewPatientButtonActionPerformed
 
     private void helpTextButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_helpTextButtonActionPerformed
@@ -856,7 +862,7 @@ public class ViewDoctorsFrame extends javax.swing.JFrame {
 
     private void openMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openMenuActionPerformed
         // TODO add your handling code here:
-         JFileChooser chooser = new JFileChooser();
+        JFileChooser chooser = new JFileChooser();
         int r = chooser.showOpenDialog(openMenu);
         if (r == JFileChooser.APPROVE_OPTION) {
             try {

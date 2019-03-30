@@ -1,6 +1,5 @@
 package hms;
 
-
 import java.awt.Desktop;
 import java.awt.Font;
 import java.io.IOException;
@@ -652,8 +651,16 @@ public class ViewPatientFrame extends javax.swing.JFrame {
 
         String[] allDetails = new String[Configuration.patientList.size() * 6]; // just so we copy all the values into this array in order.
         String[] array = config.copyPatientToTempList(Configuration.patientList, selected);
-        StringSort sort = new StringSort(array);
-        String[] sorted = sort.getSortedArray();
+        String[] sorted;
+        if (selected.equals("Age")) {
+            int[] updated = config.stringToIntArray(array);
+            IntegerSort sort = new IntegerSort(updated);
+            sorted = config.intToStringArray(sort.getSortedArray());
+        } else {
+            StringSort sort = new StringSort(array);
+            sorted = sort.getSortedArray();
+        }
+
         System.out.println(Arrays.toString(array));
 
         // copying all the details 
@@ -686,7 +693,6 @@ public class ViewPatientFrame extends javax.swing.JFrame {
                     } else if (selected.equals("Age")) {
                         for (Patient pa : Configuration.patientList) {
                             if (allDetails[j + 4].equals(pa.getDoctor().getName())) {
-
                                 dc = pa.getDoctor();
                             }
                         }
@@ -791,7 +797,7 @@ public class ViewPatientFrame extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(rootPane, "Name : " + allDetails[count]
                             + "\n " + "Age : " + allDetails[count + 1] + "\n " + "Sex : " + allDetails[count + 2]
                             + "\n " + "Address : " + allDetails[count + 3] + "\n " + "Severity : " + allDetails[count + 4]
-                            + "\n " + "Doctor : " + allDetails[count + 5], "Found" + allDetails[count],
+                            + "\n " + "Doctor : " + allDetails[count + 5], "Found",
                             JOptionPane.INFORMATION_MESSAGE);
                 } else if (selected.equals("Age")) {
                     JOptionPane.showMessageDialog(rootPane, "Name : " + allDetails[count - 1]
@@ -925,7 +931,7 @@ public class ViewPatientFrame extends javax.swing.JFrame {
             statusLabel.setText("That sort and search took "
                     + (watch.timeElapsed() + time.timeElapsed())
                     + " ms for " + Configuration.patientList.size()
-                    + " entries. " + (config.moreOnPatientList(keyword, selected)) + " more similar entries found on same categeory.");
+                    + " total entries. " + (config.moreOnPatientList(keyword, selected)) + " more similar entries found on same categeory.");
 
         }
     }//GEN-LAST:event_searchButtonActionPerformed
@@ -943,7 +949,7 @@ public class ViewPatientFrame extends javax.swing.JFrame {
                 StopWatch watch = new StopWatch();
                 sortPatient(selected);
                 watch.stop();
-                statusLabel.setText("That sort took " + watch.timeElapsed() + " ms for " + Configuration.doctorList.size() + " entries.");
+                statusLabel.setText("That sort took " + watch.timeElapsed() + " ms for " + Configuration.doctorList.size() + " total entries.");
             }
 
         }
@@ -961,7 +967,7 @@ public class ViewPatientFrame extends javax.swing.JFrame {
 
     private void openMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openMenuActionPerformed
         // TODO add your handling code here:
-         JFileChooser chooser = new JFileChooser();
+        JFileChooser chooser = new JFileChooser();
         int r = chooser.showOpenDialog(openMenu);
         if (r == JFileChooser.APPROVE_OPTION) {
             try {

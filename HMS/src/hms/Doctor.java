@@ -58,31 +58,6 @@ public class Doctor {
         this.salary = salary;
     }
 
-    public Doctor getByName(String searchName) {
-        if (searchName.equals(this.name)) {
-            return new Doctor(name, address, shift, salary);
-        }
-        return null;
-    }
-     public Doctor getByAddress(String searchAddress) {
-        if (searchAddress.equals(this.address)) {
-            return new Doctor(name, address, shift, salary);
-        }
-        return null;
-    }
-      public Doctor getByShift(String searchShift) {
-        if (searchShift.equals(this.shift)) {
-            return new Doctor(name, address, shift, salary);
-        }
-        return null;
-    }
-       public Doctor getBySalary(int searchSalary) {
-        if (searchSalary == this.salary) {
-            return new Doctor(name, address, shift, salary);
-        }
-        return null;
-    }
-
     @Override
     public String toString() {
         return "Doctor{" + "name=" + name + ", address=" + address + ", shift=" + shift + ", salary=" + salary + '}';
