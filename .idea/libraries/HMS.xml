@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="HMS">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/HMS/dist/HMS.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>
